@@ -1,0 +1,175 @@
+
+import { motion } from "framer-motion";
+
+const About = () => {
+  return (
+    <div className="pt-24 pb-16">
+      <div className="wedding-container">
+        <h1 className="section-title mb-12">Notre Histoire</h1>
+
+        <div className="max-w-4xl mx-auto">
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-wedding-gold"></div>
+
+            {/* Timeline Items */}
+            <div className="space-y-24">
+              {/* First Meeting */}
+              <div className="relative">
+                <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3 w-12 h-12 rounded-full bg-wedding-gold flex items-center justify-center text-white font-semibold">
+                  2018
+                </div>
+                <div className="flex flex-col md:flex-row items-center md:items-start">
+                  <div className="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
+                    <h3 className="text-2xl font-playfair mb-4">Notre Rencontre</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      Nous nous sommes rencontrés par hasard lors d'un vernissage d'art contemporain à Paris. 
+                      Marcelle était venue soutenir une amie artiste, tandis que Stéphane, passionné d'art, 
+                      avait été invité par un collègue. Nos regards se sont croisés devant une oeuvre 
+                      abstraite qui a déclenché une conversation animée que nous n'avons jamais terminée.
+                    </p>
+                  </div>
+                  <div className="md:w-1/2 md:pl-12">
+                    <div className="w-64 h-64 mx-auto rounded-full overflow-hidden shadow-lg">
+                      <img 
+                        src="https://images.unsplash.com/photo-1522264677 6b394-4144-a5b0-fd5fc8efc601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=760&q=80" 
+                        alt="Notre première rencontre" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* First Date */}
+              <div className="relative">
+                <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3 w-12 h-12 rounded-full bg-wedding-gold flex items-center justify-center text-white font-semibold">
+                  2019
+                </div>
+                <div className="flex flex-col md:flex-row items-center md:items-start">
+                  <div className="md:w-1/2 md:pr-12 order-2 md:order-1">
+                    <div className="w-64 h-64 mx-auto rounded-full overflow-hidden shadow-lg">
+                      <img 
+                        src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" 
+                        alt="Notre amour grandit" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="md:w-1/2 md:pl-12 md:text-left mb-8 md:mb-0 order-1 md:order-2">
+                    <h3 className="text-2xl font-playfair mb-4">Premier Voyage Ensemble</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      Après plusieurs mois de complicité grandissante, nous avons décidé de partir pour 
+                      un premier voyage ensemble à Lisbonne. Cette escapade de quatre jours s'est 
+                      transformée en une aventure mémorable, pleine de découvertes, de fous rires et 
+                      de moments de tendresse qui ont consolidé notre lien.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Proposal */}
+              <div className="relative">
+                <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3 w-12 h-12 rounded-full bg-wedding-gold flex items-center justify-center text-white font-semibold">
+                  2023
+                </div>
+                <div className="flex flex-col md:flex-row items-center md:items-start">
+                  <div className="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
+                    <h3 className="text-2xl font-playfair mb-4">La Demande</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      Après cinq années d'amour et de complicité, Stéphane a fait sa demande lors d'une 
+                      balade en barque sur le lac d'Annecy. Avec les montagnes en toile de fond et le 
+                      soleil couchant qui teintait l'eau de reflets dorés, il a sorti une petite boîte 
+                      de sa poche... Marcelle a dit "oui" sans hésitation, les yeux remplis de larmes de joie.
+                    </p>
+                  </div>
+                  <div className="md:w-1/2 md:pl-12">
+                    <div className="w-64 h-64 mx-auto rounded-full overflow-hidden shadow-lg">
+                      <img 
+                        src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" 
+                        alt="La demande en mariage" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Wedding */}
+              <div className="relative">
+                <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3 w-12 h-12 rounded-full bg-wedding-gold flex items-center justify-center text-white font-semibold">
+                  2024
+                </div>
+                <div className="flex flex-col md:flex-row items-center md:items-start">
+                  <div className="md:w-1/2 md:pr-12 order-2 md:order-1">
+                    <div className="w-64 h-64 mx-auto rounded-full overflow-hidden shadow-lg">
+                      <img 
+                        src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" 
+                        alt="Notre mariage" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className="md:w-1/2 md:pl-12 md:text-left mb-8 md:mb-0 order-1 md:order-2">
+                    <h3 className="text-2xl font-playfair mb-4">Notre Mariage</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      Nous sommes heureux de vous convier à notre mariage qui se tiendra le 15 juin 2024. 
+                      Ce sera le début d'un nouveau chapitre de notre histoire, que nous sommes impatients 
+                      d'écrire ensemble, entourés de toutes les personnes qui nous sont chères.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* About Us Section */}
+        <section className="mt-32">
+          <h2 className="section-title">Qui Sommes-Nous ?</h2>
+          
+          <div className="grid md:grid-cols-2 gap-16 max-w-4xl mx-auto mt-12">
+            {/* Marcelle */}
+            <div className="text-center">
+              <div className="w-56 h-56 rounded-full overflow-hidden mx-auto mb-6 shadow-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80" 
+                  alt="Marcelle" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-2xl font-playfair mb-3">Marcelle</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Architecte d'intérieur passionnée, Marcelle aime transformer les espaces et créer des 
+                ambiances uniques. D'un naturel curieux et créatif, elle trouve son inspiration dans les 
+                voyages, l'art et les rencontres. Son rire communicatif et sa joie de vivre illuminent 
+                le quotidien de Stéphane depuis leur rencontre.
+              </p>
+            </div>
+
+            {/* Stéphane */}
+            <div className="text-center">
+              <div className="w-56 h-56 rounded-full overflow-hidden mx-auto mb-6 shadow-lg">
+                <img 
+                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                  alt="Stéphane" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-2xl font-playfair mb-3">Stéphane</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Ingénieur en informatique et amateur de photographie, Stéphane est un perfectionniste 
+                attentif aux détails. Sa patience, son écoute et son humour ont conquis le cœur de Marcelle. 
+                Grand amateur de randonnée et de sports d'extérieur, il aime organiser des escapades 
+                surprises qui nourrissent leur complicité.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default About;
