@@ -10,7 +10,7 @@ const Index = () => {
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-hero-pattern bg-cover bg-center"
-          style={{ backgroundImage: "url('/lovable-uploads/37e72a5d-c679-4b7d-babd-ba2b79e623e2.png')" }}
+          style={{ backgroundImage: "url('/lovable-uploads/468b8a41-23ad-49cf-bbe0-3d3818274c5e.png')" }}
         >
           <div className="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
@@ -21,11 +21,11 @@ const Index = () => {
             Marcelle & Stéphane
           </h1>
           <p className="text-xl md:text-2xl font-light mb-8 animate-fade-up">
-            15 Juin 2024 • Paris, France
+            17 Mai 2025 • Yaoundé, Cameroun
           </p>
           <NavLink
             to="/rsvp"
-            className="inline-block bg-wedding-rose bg-opacity-80 hover:bg-opacity-100 text-white font-medium py-3 px-8 rounded-md transition-all duration-300 animate-fade-up"
+            className="inline-block bg-wedding-terracotta hover:bg-wedding-orange text-white font-medium py-3 px-8 rounded-md transition-all duration-300 animate-fade-up"
             style={{ animationDelay: "0.3s" }}
           >
             RSVP
@@ -52,7 +52,7 @@ const Index = () => {
       </section>
 
       {/* Countdown Section */}
-      <section className="py-20 bg-wedding-rose bg-opacity-20">
+      <section className="py-20 bg-wedding-sage bg-opacity-20">
         <div className="wedding-container">
           <div className="max-w-3xl mx-auto">
             <Countdown />
@@ -65,7 +65,7 @@ const Index = () => {
         <div className="wedding-container">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="section-title mb-6">Notre Mariage</h2>
-            <p className="text-lg mb-10 leading-relaxed">
+            <p className="text-lg mb-10 leading-relaxed text-wedding-burgundy">
               Nous sommes ravis de vous inviter à célébrer notre union. Ce sera
               pour nous une immense joie de partager ce moment unique entourés
               de nos proches. Naviguez sur ce site pour découvrir tous les

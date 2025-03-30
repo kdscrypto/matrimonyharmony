@@ -9,8 +9,8 @@ interface TimeLeft {
 }
 
 const Countdown = () => {
-  // Date du mariage: 15 Juin 2024 à 15:00 (exemple)
-  const weddingDate = new Date("2024-06-15T15:00:00");
+  // Date du mariage: 17 Mai 2025 à 15:00
+  const weddingDate = new Date("2025-05-17T15:00:00");
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -44,7 +44,7 @@ const Countdown = () => {
   const TimeUnit = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center">
       <div className="bg-white bg-opacity-80 rounded-lg p-4 w-20 md:w-24 h-20 md:h-24 flex items-center justify-center shadow-md">
-        <span className="text-2xl md:text-3xl font-semibold text-wedding-dark">
+        <span className="text-2xl md:text-3xl font-semibold text-wedding-burgundy">
           {value}
         </span>
       </div>
@@ -55,7 +55,7 @@ const Countdown = () => {
   );
 
   return (
-    <div className="bg-wedding-dark bg-opacity-80 p-6 rounded-lg shadow-lg">
+    <div className="bg-wedding-burgundy bg-opacity-80 p-6 rounded-lg shadow-lg">
       <h3 className="text-xl md:text-2xl font-playfair text-center text-white mb-6">
         Notre Grand Jour Arrive Dans
       </h3>

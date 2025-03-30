@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-wedding-dark bg-opacity-90 py-3" : "bg-transparent py-5"
+        isScrolled ? "bg-wedding-burgundy bg-opacity-90 py-3" : "bg-transparent py-5"
       }`}
     >
       <div className="wedding-container flex justify-between items-center">
@@ -79,7 +79,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-wedding-dark bg-opacity-95 py-4">
+        <div className="md:hidden bg-wedding-burgundy bg-opacity-95 py-4">
           <nav className="wedding-container flex flex-col space-y-4">
             <NavLink
               to="/about"

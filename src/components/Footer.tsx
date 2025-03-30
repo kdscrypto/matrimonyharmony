@@ -3,12 +3,12 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-wedding-dark text-white py-12">
+    <footer className="bg-wedding-burgundy text-white py-12">
       <div className="wedding-container">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">
             <h2 className="text-2xl font-playfair mb-2">Marcelle & Stéphane</h2>
-            <p className="text-wedding-rose">Nous avons hâte de vous voir !</p>
+            <p className="text-wedding-orange">Nous avons hâte de vous voir !</p>
           </div>
 
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">

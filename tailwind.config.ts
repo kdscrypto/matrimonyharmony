@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -57,7 +56,12 @@ export default {
           beige: "#F5F1EA",
           rose: "#F8E6E4",
           gold: "#D9C7A7",
-          dark: "#473C38"
+          dark: "#473C38",
+          burgundy: "#701F1F",
+          rust: "#9B3D23",
+          terracotta: "#C26B39",
+          orange: "#E67E22",
+          sage: "#7D8471"
         }
       },
       borderRadius: {
@@ -94,7 +98,7 @@ export default {
         'montserrat': ['Montserrat', 'sans-serif'],
       },
       backgroundImage: {
-        'hero-pattern': "url('/lovable-uploads/37e72a5d-c679-4b7d-babd-ba2b79e623e2.png')",
+        'hero-pattern': "url('/lovable-uploads/468b8a41-23ad-49cf-bbe0-3d3818274c5e.png')",
       }
     },
   },
