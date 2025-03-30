@@ -37,7 +37,12 @@ const BackgroundSlideshow = ({
         className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
           isTransitioning ? "opacity-0" : "opacity-100"
         }`}
-        style={{ backgroundImage: `url(${images[currentImageIndex]})` }}
+        style={{ 
+          backgroundImage: `url(${images[currentImageIndex]})`,
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat"
+        }}
       />
       
       {/* Image suivante (visible pendant la transition) */}
@@ -45,7 +50,12 @@ const BackgroundSlideshow = ({
         className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${
           isTransitioning ? "opacity-100" : "opacity-0"
         }`}
-        style={{ backgroundImage: `url(${images[nextImageIndex]})` }}
+        style={{ 
+          backgroundImage: `url(${images[nextImageIndex]})`,
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat"
+        }}
       />
       
       {/* Overlay pour assurer la lisibilité du texte */}

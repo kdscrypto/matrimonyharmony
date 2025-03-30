@@ -17,7 +17,7 @@ const Index = () => {
       {/* Hero Section */}
       <section className="h-screen relative flex items-center justify-center">
         {/* Background Slideshow */}
-        <BackgroundSlideshow images={backgroundImages} interval={6000} />
+        <BackgroundSlideshow images={backgroundImages} interval={12000} />
 
         {/* Content */}
         <div className="relative z-10 text-center text-white p-6">
