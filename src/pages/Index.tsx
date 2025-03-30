@@ -1,19 +1,23 @@
 
 import { NavLink } from "react-router-dom";
 import Countdown from "@/components/Countdown";
+import BackgroundSlideshow from "@/components/BackgroundSlideshow";
 
 const Index = () => {
+  // Images de fond pour le diaporama
+  const backgroundImages = [
+    "/lovable-uploads/e10c8701-5c9b-4181-92f7-5fdc4677d567.png",
+    "/lovable-uploads/b5d4a20f-e0c2-40b5-8b6b-8e374048cf3e.png",
+    "/lovable-uploads/6d5d959e-af8d-4650-911c-7de5412ac9e6.png",
+    "/lovable-uploads/6017e0a1-2d08-44bf-bcf5-3e7b9a709f9a.png"
+  ];
+
   return (
     <>
       {/* Hero Section */}
       <section className="h-screen relative flex items-center justify-center">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-hero-pattern bg-cover bg-center"
-          style={{ backgroundImage: "url('/lovable-uploads/468b8a41-23ad-49cf-bbe0-3d3818274c5e.png')" }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-        </div>
+        {/* Background Slideshow */}
+        <BackgroundSlideshow images={backgroundImages} interval={6000} />
 
         {/* Content */}
         <div className="relative z-10 text-center text-white p-6">

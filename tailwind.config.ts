@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -85,6 +86,10 @@ export default {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" }
+        },
+        "cross-fade": {
+          "0%, 100%": { opacity: "0" },
+          "20%, 80%": { opacity: "1" }
         }
       },
       animation: {
@@ -92,6 +97,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 1.5s ease-out",
         "fade-up": "fade-up 1s ease-out",
+        "cross-fade": "cross-fade 8s ease-in-out infinite",
       },
       fontFamily: {
         'playfair': ['"Playfair Display"', 'serif'],
