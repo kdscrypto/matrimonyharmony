@@ -15,12 +15,12 @@ const Index = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="h-screen relative flex items-center justify-center">
+      <section className="h-screen relative flex items-center">
         {/* Background Slideshow */}
         <BackgroundSlideshow images={backgroundImages} interval={12000} />
 
-        {/* Content */}
-        <div className="relative z-10 text-center text-white p-6">
+        {/* Content - repositionné à droite */}
+        <div className="relative z-10 text-center text-wedding-burgundy p-6 ml-auto w-1/2">
           <h1 className="text-5xl md:text-7xl font-playfair mb-4 animate-fade-in">
             Marcelle & Stéphane
           </h1>
@@ -37,7 +37,7 @@ const Index = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-wedding-burgundy animate-bounce">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
