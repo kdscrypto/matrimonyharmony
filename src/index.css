@@ -6,6 +6,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Variables CSS personnalisées pour une meilleure cohérence */
+:root {
+  --font-primary: 'Montserrat', sans-serif;
+  --font-heading: 'Playfair Display', serif;
+  --color-burgundy: #701F1F;
+  --color-gold: #D9C7A7;
+  --color-terracotta: #C26B39;
+  --color-orange: #E67E22;
+}
+
 @layer base {
   :root {
     --background: 20 30% 97%;
@@ -43,13 +53,43 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-white text-wedding-burgundy font-montserrat;
-    font-feature-settings: "rlig" 1, "calt" 1;
+  html {
+    scroll-behavior: smooth;
+    height: 100%;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  body {
+    @apply bg-white text-wedding-burgundy font-montserrat min-h-screen;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Amélioration des styles de typographie de base pour les différentes tailles d'écran */
+  h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-playfair;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl lg:text-4xl font-playfair;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl lg:text-3xl font-playfair;
+  }
+
+  h4, h5, h6 {
     @apply font-playfair;
+  }
+
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Optimisations pour le focus et l'accessibilité */
+  a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    @apply outline-none ring-2 ring-wedding-gold;
   }
 }
 
@@ -59,11 +99,11 @@
   }
   
   .btn-primary {
-    @apply bg-wedding-terracotta text-white px-6 py-3 rounded-md hover:bg-opacity-90 transition-all duration-300 font-medium;
+    @apply bg-wedding-terracotta text-white px-5 py-2 md:px-6 md:py-3 rounded-md hover:bg-opacity-90 transition-all duration-300 font-medium shadow-sm hover:shadow focus:ring-2 focus:ring-wedding-orange focus:ring-opacity-50;
   }
   
   .btn-outline {
-    @apply border border-wedding-terracotta text-wedding-burgundy px-6 py-3 rounded-md hover:bg-wedding-terracotta hover:text-white transition-all duration-300 font-medium;
+    @apply border border-wedding-terracotta text-wedding-burgundy px-5 py-2 md:px-6 md:py-3 rounded-md hover:bg-wedding-terracotta hover:text-white transition-all duration-300 font-medium shadow-sm hover:shadow focus:ring-2 focus:ring-wedding-orange focus:ring-opacity-50;
   }
   
   .nav-link {
@@ -71,6 +111,48 @@
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-playfair font-semibold mb-8 text-center text-wedding-burgundy;
+    @apply text-2xl sm:text-3xl md:text-4xl font-playfair font-semibold mb-6 md:mb-8 text-center text-wedding-burgundy;
+  }
+
+  /* Composants de carte réactifs */
+  .responsive-card {
+    @apply bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* Grille adaptative automatique */
+  .auto-grid {
+    @apply grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6;
+  }
+
+  /* Styles de formulaire améliorés */
+  .form-input {
+    @apply w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-wedding-gold transition-all duration-200;
+  }
+
+  /* Améliorations pour la hauteur d'écran */
+  .min-h-screen-safe {
+    min-height: 100vh;
+    /* Support pour les navigateurs mobiles avec barres d'interface */
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Utilitaires pour l'espacement et les marges tenant compte de la navbar */
+.pt-safe {
+  padding-top: calc(env(safe-area-inset-top) + 5rem);
+}
+
+/* Media queries spécifiques pour les ajustements de taille */
+@media (max-width: 640px) {
+  .wedding-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Prévention de certains problèmes de défilement iOS */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
   }
 }

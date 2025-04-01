@@ -1,35 +1,39 @@
 
 import { NavLink } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Footer = () => {
+  const isMobile = useIsMobile();
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-wedding-burgundy text-white py-12">
-      <div className="wedding-container">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
+    <footer className="bg-wedding-burgundy text-white py-10 md:py-12">
+      <div className="wedding-container px-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+          <div className="text-center md:text-left mb-6 md:mb-0">
             <h2 className="text-2xl font-playfair mb-2">Marcelle & Stéphane</h2>
-            <p className="text-wedding-orange">Nous avons hâte de vous voir !</p>
+            <p className="text-wedding-orange text-sm md:text-base">Nous avons hâte de vous voir !</p>
           </div>
 
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
-            <NavLink to="/about" className="nav-link">
+          <div className="grid grid-cols-2 md:flex md:flex-row gap-x-8 gap-y-4 md:gap-y-0 md:space-x-8 text-center md:text-left">
+            <NavLink to="/about" className="nav-link text-sm md:text-base">
               Notre Histoire
             </NavLink>
-            <NavLink to="/details" className="nav-link">
+            <NavLink to="/details" className="nav-link text-sm md:text-base">
               Informations
             </NavLink>
-            <NavLink to="/gallery" className="nav-link">
+            <NavLink to="/gallery" className="nav-link text-sm md:text-base">
               Galerie
             </NavLink>
-            <NavLink to="/rsvp" className="nav-link">
+            <NavLink to="/rsvp" className="nav-link text-sm md:text-base">
               RSVP
             </NavLink>
           </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-700 text-center">
-          <p className="text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} | Marcelle & Stéphane
+          <p className="text-xs md:text-sm text-gray-400">
+            &copy; {currentYear} | Marcelle & Stéphane
           </p>
         </div>
       </div>

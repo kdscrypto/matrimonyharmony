@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -75,28 +75,77 @@ const Gallery = () => {
 
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const isMobile = useIsMobile();
+  
+  // Support for keyboard navigation and gestures
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedImage) return;
+      
+      if (e.key === 'ArrowLeft') {
+        goToPrevious();
+      } else if (e.key === 'ArrowRight') {
+        goToNext();
+      } else if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage, selectedIndex]);
+  
+  // Touch event handling for swipe on mobile
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(null);
+  };
+  
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+  
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    
+    if (isLeftSwipe) {
+      goToNext();
+    } else if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
 
-  const openLightbox = (image: typeof images[0], index: number) => {
+  const openLightbox = useCallback((image: typeof images[0], index: number) => {
     setSelectedImage(image);
     setSelectedIndex(index);
-  };
+    // Prevent body scrolling when lightbox is open
+    document.body.style.overflow = 'hidden';
+  }, []);
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setSelectedImage(null);
     setSelectedIndex(-1);
-  };
+    // Restore body scrolling when lightbox is closed
+    document.body.style.overflow = '';
+  }, []);
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     const newIndex = (selectedIndex - 1 + images.length) % images.length;
     setSelectedImage(images[newIndex]);
     setSelectedIndex(newIndex);
-  };
+  }, [selectedIndex, images]);
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     const newIndex = (selectedIndex + 1) % images.length;
     setSelectedImage(images[newIndex]);
     setSelectedIndex(newIndex);
-  };
+  }, [selectedIndex, images]);
 
   return (
     <div className="pt-16 md:pt-24 pb-16">
@@ -104,7 +153,7 @@ const Gallery = () => {
         <h1 className="section-title mb-8 md:mb-12">Notre Galerie</h1>
         
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {images.map((image, index) => (
               <div 
                 key={index} 
@@ -132,9 +181,12 @@ const Gallery = () => {
           <div 
             className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-2 sm:p-4"
             onClick={closeLightbox}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             <div 
-              className="max-w-4xl max-h-full relative"
+              className="max-w-4xl w-full max-h-full relative"
               onClick={(e) => e.stopPropagation()}
             >
               <button 
@@ -178,19 +230,22 @@ const Gallery = () => {
               </div>
             </div>
             
-            {/* Mobile indicator */}
-            {isMobile && (
-              <div className="mt-4 flex justify-center">
-                <div className="flex space-x-1">
-                  {images.map((_, idx) => (
-                    <div 
-                      key={idx} 
-                      className={`w-2 h-2 rounded-full ${idx === selectedIndex ? 'bg-wedding-gold' : 'bg-gray-500'}`}
-                    />
-                  ))}
+            {/* Mobile indicator and counter */}
+            <div className="mt-4 text-white text-center">
+              <p className="mb-2">{selectedIndex + 1} / {images.length}</p>
+              {isMobile && (
+                <div className="flex justify-center">
+                  <div className="flex space-x-1">
+                    {images.map((_, idx) => (
+                      <div 
+                        key={idx} 
+                        className={`w-2 h-2 rounded-full ${idx === selectedIndex ? 'bg-wedding-gold' : 'bg-gray-500'}`}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
       </div>

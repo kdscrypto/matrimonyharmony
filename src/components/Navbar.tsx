@@ -1,32 +1,76 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { NavLink } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
+
+  // Optimiser la détection de défilement avec throttling
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > 50) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+    // Throttle function pour améliorer les performances
+    let lastScrollTime = 0;
+    const throttleTime = 100; // ms
+    
+    const throttledScrollHandler = () => {
+      const now = Date.now();
+      if (now - lastScrollTime >= throttleTime) {
+        lastScrollTime = now;
+        handleScroll();
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", throttledScrollHandler);
+    return () => window.removeEventListener("scroll", throttledScrollHandler);
+  }, [handleScroll]);
+
+  // Fermer le menu mobile lors d'un changement de route
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // Empêcher le défilement du corps lorsque le menu mobile est ouvert
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-wedding-burgundy bg-opacity-90 py-3" : "bg-transparent py-5"
+        isScrolled 
+          ? "bg-wedding-burgundy bg-opacity-95 backdrop-blur-sm shadow-md py-2" 
+          : "bg-transparent py-3 md:py-5"
       }`}
     >
       <div className="wedding-container flex justify-between items-center">
-        <NavLink to="/" className="text-white text-xl md:text-2xl font-playfair">
+        <NavLink 
+          to="/" 
+          className="text-white text-xl md:text-2xl font-playfair" 
+          onClick={closeMobileMenu}
+        >
           Marcelle & Stéphane
         </NavLink>
 
@@ -48,64 +92,48 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden text-white"
+          onClick={toggleMobileMenu}
+          className="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-wedding-orange rounded-md"
+          aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          aria-expanded={isMobileMenuOpen}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            {isMobileMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
+          {isMobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Plein écran pour une meilleure expérience */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-wedding-burgundy bg-opacity-95 py-4">
-          <nav className="wedding-container flex flex-col space-y-4">
+        <div className="fixed inset-0 z-40 md:hidden bg-wedding-burgundy bg-opacity-98 pt-20">
+          <nav className="wedding-container flex flex-col space-y-6 p-6">
             <NavLink
               to="/about"
-              className="nav-link block py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="nav-link text-xl block py-3 text-center"
+              onClick={closeMobileMenu}
             >
               Notre Histoire
             </NavLink>
             <NavLink
               to="/details"
-              className="nav-link block py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="nav-link text-xl block py-3 text-center"
+              onClick={closeMobileMenu}
             >
               Informations
             </NavLink>
             <NavLink
               to="/gallery"
-              className="nav-link block py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="nav-link text-xl block py-3 text-center"
+              onClick={closeMobileMenu}
             >
               Galerie
             </NavLink>
             <NavLink
               to="/rsvp"
-              className="nav-link block py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
+              className="nav-link text-xl block py-3 text-center"
+              onClick={closeMobileMenu}
             >
               RSVP
             </NavLink>

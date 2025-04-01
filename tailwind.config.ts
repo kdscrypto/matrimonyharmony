@@ -18,6 +18,14 @@ export default {
         "2xl": "1400px",
       },
     },
+    screens: {
+      'xs': '480px',
+      'sm': '576px',
+      'md': '768px',
+      'lg': '992px',
+      'xl': '1200px',
+      '2xl': '1400px',
+    },
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -105,7 +113,11 @@ export default {
       },
       backgroundImage: {
         'hero-pattern': "url('/lovable-uploads/468b8a41-23ad-49cf-bbe0-3d3818274c5e.png')",
-      }
+      },
+      spacing: {
+        'navbar-mobile': '4rem',
+        'navbar-desktop': '5rem',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
