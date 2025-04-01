@@ -24,10 +24,10 @@ const About = () => {
                   <div className="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
                     <h3 className="text-2xl font-playfair mb-4">Notre Rencontre</h3>
                     <p className="text-gray-700 leading-relaxed">
-                      Nous nous sommes rencontrés par hasard lors d'un vernissage d'art contemporain à Paris. 
-                      Marcelle était venue soutenir une amie artiste, tandis que Stéphane, passionné d'art, 
-                      avait été invité par un collègue. Nos regards se sont croisés devant une oeuvre 
-                      abstraite qui a déclenché une conversation animée que nous n'avons jamais terminée.
+                      J'ai vu Stéphane sur le statut d'un de ses amis et ce qui m'a le plus frappé chez lui, 
+                      c'était son élégance. Après échange de contacts, nous avons commencé à discuter à n'en 
+                      point finir. Cette relation remplie de ses hauts et ses bas nous a confortés dans le 
+                      choix de nos décisions.
                     </p>
                   </div>
                   <div className="md:w-1/2 md:pl-12">
@@ -60,10 +60,10 @@ const About = () => {
                   <div className="md:w-1/2 md:pl-12 md:text-left mb-8 md:mb-0 order-1 md:order-2">
                     <h3 className="text-2xl font-playfair mb-4">Premier Voyage Ensemble</h3>
                     <p className="text-gray-700 leading-relaxed">
-                      Après plusieurs mois de complicité grandissante, nous avons décidé de partir pour 
-                      un premier voyage ensemble à Lisbonne. Cette escapade de quatre jours s'est 
-                      transformée en une aventure mémorable, pleine de découvertes, de fous rires et 
-                      de moments de tendresse qui ont consolidé notre lien.
+                      Après plusieurs semaines d'échanges et de complicité, il a décidé de m'inviter à Edea 
+                      pour une première rencontre. Cette escapade de 3 jours s'est transformée en une aventure 
+                      mémorable, pleine de découvertes, de fous rires et de moments de tendresse, qui ont 
+                      consolidé notre lien.
                     </p>
                   </div>
                 </div>
@@ -78,10 +78,8 @@ const About = () => {
                   <div className="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
                     <h3 className="text-2xl font-playfair mb-4">La Demande</h3>
                     <p className="text-gray-700 leading-relaxed">
-                      Après cinq années d'amour et de complicité, Stéphane a fait sa demande lors d'une 
-                      balade en barque sur le lac d'Annecy. Avec les montagnes en toile de fond et le 
-                      soleil couchant qui teintait l'eau de reflets dorés, il a sorti une petite boîte 
-                      de sa poche... Marcelle a dit "oui" sans hésitation, les yeux remplis de larmes de joie.
+                      Après quatre années d'amour et de complicité, Stéphane a fait sa demande qu'il a 
+                      accompagnée du mariage coutumier.
                     </p>
                   </div>
                   <div className="md:w-1/2 md:pl-12">
@@ -114,7 +112,7 @@ const About = () => {
                   <div className="md:w-1/2 md:pl-12 md:text-left mb-8 md:mb-0 order-1 md:order-2">
                     <h3 className="text-2xl font-playfair mb-4">Notre Mariage</h3>
                     <p className="text-gray-700 leading-relaxed">
-                      Nous sommes heureux de vous convier à notre mariage qui se tiendra le 15 juin 2024. 
+                      Nous sommes heureux de vous convier à notre mariage qui se tiendra le 17 mai 2025. 
                       Ce sera le début d'un nouveau chapitre de notre histoire, que nous sommes impatients 
                       d'écrire ensemble, entourés de toutes les personnes qui nous sont chères.
                     </p>
@@ -139,12 +137,12 @@ const About = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-playfair mb-3">Marcelle</h3>
+              <h3 className="text-2xl font-playfair mb-3">Steve Marcelle</h3>
               <p className="text-gray-700 leading-relaxed">
-                Architecte d'intérieur passionnée, Marcelle aime transformer les espaces et créer des 
-                ambiances uniques. D'un naturel curieux et créatif, elle trouve son inspiration dans les 
-                voyages, l'art et les rencontres. Son rire communicatif et sa joie de vivre illuminent 
-                le quotidien de Stéphane depuis leur rencontre.
+                Gendarme, elle adore la décoration intérieure et la pâtisserie. 
+                Elle aime beaucoup les blagues et est très entourée de ceux qu'elle aime. 
+                Son rire communicatif et sa joie de vivre illuminent le quotidien de Stéphane 
+                depuis leur rencontre.
               </p>
             </div>
 
@@ -159,10 +157,10 @@ const About = () => {
               </div>
               <h3 className="text-2xl font-playfair mb-3">Stéphane</h3>
               <p className="text-gray-700 leading-relaxed">
-                Ingénieur en informatique et amateur de photographie, Stéphane est un perfectionniste 
-                attentif aux détails. Sa patience, son écoute et son humour ont conquis le cœur de Marcelle. 
-                Grand amateur de randonnée et de sports d'extérieur, il aime organiser des escapades 
-                surprises qui nourrissent leur complicité.
+                Gendarme, passionné de son travail, extraverti, sociable et travailleur. 
+                Son calme, sa douceur et son esprit de famille ont conquis le cœur de Steve Marcelle. 
+                Il aime les matchs de football, et aime organiser des surprises qui nourrissent 
+                leur complicité.
               </p>
             </div>
           </div>
