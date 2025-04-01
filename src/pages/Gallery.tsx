@@ -1,5 +1,7 @@
 
 import { useState } from "react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Gallery = () => {
   const images = [
@@ -71,27 +73,53 @@ const Gallery = () => {
     caption: string;
   }>(null);
 
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+  const isMobile = useIsMobile();
+
+  const openLightbox = (image: typeof images[0], index: number) => {
+    setSelectedImage(image);
+    setSelectedIndex(index);
+  };
+
+  const closeLightbox = () => {
+    setSelectedImage(null);
+    setSelectedIndex(-1);
+  };
+
+  const goToPrevious = () => {
+    const newIndex = (selectedIndex - 1 + images.length) % images.length;
+    setSelectedImage(images[newIndex]);
+    setSelectedIndex(newIndex);
+  };
+
+  const goToNext = () => {
+    const newIndex = (selectedIndex + 1) % images.length;
+    setSelectedImage(images[newIndex]);
+    setSelectedIndex(newIndex);
+  };
+
   return (
-    <div className="pt-24 pb-16">
-      <div className="wedding-container">
-        <h1 className="section-title mb-12">Notre Galerie</h1>
+    <div className="pt-16 md:pt-24 pb-16">
+      <div className="wedding-container px-2 sm:px-4">
+        <h1 className="section-title mb-8 md:mb-12">Notre Galerie</h1>
         
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {images.map((image, index) => (
               <div 
                 key={index} 
                 className="group relative overflow-hidden rounded-lg shadow-md aspect-square cursor-pointer"
-                onClick={() => setSelectedImage(image)}
+                onClick={() => openLightbox(image, index)}
               >
                 <img 
                   src={image.src} 
                   alt={image.alt} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-end justify-center">
-                  <div className="p-4 w-full bg-black bg-opacity-0 group-hover:bg-opacity-50 translate-y-full group-hover:translate-y-0 transition-all duration-300">
-                    <p className="text-white text-center">{image.caption}</p>
+                  <div className="p-2 sm:p-4 w-full bg-black bg-opacity-0 group-hover:bg-opacity-50 translate-y-full group-hover:translate-y-0 transition-all duration-300">
+                    <p className="text-white text-center text-xs sm:text-sm">{image.caption}</p>
                   </div>
                 </div>
               </div>
@@ -102,28 +130,67 @@ const Gallery = () => {
         {/* Lightbox */}
         {selectedImage && (
           <div 
-            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-2 sm:p-4"
+            onClick={closeLightbox}
           >
             <div 
               className="max-w-4xl max-h-full relative"
               onClick={(e) => e.stopPropagation()}
             >
               <button 
-                className="absolute top-4 right-4 text-white text-2xl z-10 w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center"
-                onClick={() => setSelectedImage(null)}
+                className="absolute top-2 right-2 md:top-4 md:right-4 text-white text-2xl z-10 w-8 h-8 md:w-10 md:h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center"
+                onClick={closeLightbox}
+                aria-label="Fermer"
               >
-                &times;
+                <X size={isMobile ? 18 : 24} />
               </button>
+              
+              {/* Navigation buttons */}
+              <button
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white z-10 w-8 h-8 md:w-10 md:h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToPrevious();
+                }}
+                aria-label="Image précédente"
+              >
+                <ChevronLeft size={isMobile ? 18 : 24} />
+              </button>
+              
+              <button
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white z-10 w-8 h-8 md:w-10 md:h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToNext();
+                }}
+                aria-label="Image suivante"
+              >
+                <ChevronRight size={isMobile ? 18 : 24} />
+              </button>
+              
               <img 
                 src={selectedImage.src} 
                 alt={selectedImage.alt} 
-                className="max-w-full max-h-[80vh] object-contain"
+                className="max-w-full max-h-[70vh] md:max-h-[80vh] object-contain mx-auto"
               />
-              <div className="bg-black bg-opacity-70 p-4 text-white text-center">
+              <div className="bg-black bg-opacity-70 p-2 md:p-4 text-white text-center">
                 <p>{selectedImage.caption}</p>
               </div>
             </div>
+            
+            {/* Mobile indicator */}
+            {isMobile && (
+              <div className="mt-4 flex justify-center">
+                <div className="flex space-x-1">
+                  {images.map((_, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`w-2 h-2 rounded-full ${idx === selectedIndex ? 'bg-wedding-gold' : 'bg-gray-500'}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
