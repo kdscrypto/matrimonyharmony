@@ -6,34 +6,29 @@ import {
   Utensils, 
   Music, 
   Gift, 
-  Shirt 
+  Shirt,
+  Church
 } from "lucide-react";
 
 const Details = () => {
   const events = [
     {
-      title: "Cérémonie",
-      time: "15h00 - 16h30",
-      description: "Cérémonie laïque dans les jardins du château",
+      title: "Cérémonie Civile",
+      time: "8h00",
+      description: "Célébration civile à la mairie de Tsinga",
       icon: <Calendar className="w-6 h-6" />
     },
     {
-      title: "Cocktail",
-      time: "16h30 - 19h00",
-      description: "Vin d'honneur et animations sur la terrasse",
-      icon: <Utensils className="w-6 h-6" />
+      title: "Cérémonie Religieuse",
+      time: "14h00",
+      description: "Célébration religieuse à la paroisse Notre Dame de la Paix du Lac (Messa Hygiène Mobile)",
+      icon: <Church className="w-6 h-6" />
     },
     {
-      title: "Dîner",
-      time: "19h30 - 22h00",
-      description: "Repas gastronomique dans la salle de réception",
+      title: "Cocktail & Dîner",
+      time: "17h00",
+      description: "Vin d'honneur, repas gastronomique et soirée dansante dans la salle de réception de la paroisse Notre Dame de la Paix du Lac",
       icon: <Utensils className="w-6 h-6" />
-    },
-    {
-      title: "Soirée dansante",
-      time: "22h00 - 03h00",
-      description: "Ouverture du bal par les mariés suivie de la fête",
-      icon: <Music className="w-6 h-6" />
     }
   ];
 
@@ -50,7 +45,7 @@ const Details = () => {
                 <Calendar className="w-6 h-6 text-wedding-gold mr-2" />
                 <h3 className="text-2xl font-playfair">Date</h3>
               </div>
-              <p className="text-lg">Samedi 15 Juin 2024</p>
+              <p className="text-lg">Samedi 17 Mai 2025</p>
             </div>
 
             <div className="mb-6 md:mb-0 md:mr-8">
@@ -58,7 +53,7 @@ const Details = () => {
                 <Clock className="w-6 h-6 text-wedding-gold mr-2" />
                 <h3 className="text-2xl font-playfair">Heure</h3>
               </div>
-              <p className="text-lg">Cérémonie à 15h00</p>
+              <p className="text-lg">Cérémonie civile à 8h00</p>
             </div>
 
             <div>
@@ -66,8 +61,8 @@ const Details = () => {
                 <MapPin className="w-6 h-6 text-wedding-gold mr-2" />
                 <h3 className="text-2xl font-playfair">Lieu</h3>
               </div>
-              <p className="text-lg">Château de Villette</p>
-              <p className="text-sm text-gray-600">3 Rue de la Villette, 75019 Paris</p>
+              <p className="text-lg">Mairie de Tsinga</p>
+              <p className="text-sm text-gray-600">Yaoundé</p>
             </div>
           </div>
         </section>
@@ -107,16 +102,22 @@ const Details = () => {
             <h2 className="text-2xl font-playfair">Dress Code</h2>
           </div>
           <p className="text-gray-700 mb-4">
-            Tenue élégante demandée. La cérémonie et la réception auront lieu en extérieur et en intérieur.
+            Tenue chic et élégante avec touche de terracota.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             <div className="bg-wedding-beige bg-opacity-50 p-4 rounded-md">
-              <h4 className="font-medium mb-2">Pour les hommes</h4>
-              <p>Costume ou ensemble veste-pantalon de couleurs claires à moyennes.</p>
+              <h4 className="font-medium mb-2">Couleurs recommandées</h4>
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-block px-3 py-1 bg-orange-700 text-white rounded-md">Orange brûlé</span>
+                <span className="inline-block px-3 py-1 bg-amber-800 text-white rounded-md">Marron</span>
+                <span className="inline-block px-3 py-1 bg-red-900 text-white rounded-md">Bordeaux</span>
+                <span className="inline-block px-3 py-1 bg-orange-500 text-white rounded-md">Orange vif</span>
+                <span className="inline-block px-3 py-1 bg-green-200 text-gray-800 rounded-md">Vert pastel</span>
+              </div>
             </div>
             <div className="bg-wedding-beige bg-opacity-50 p-4 rounded-md">
-              <h4 className="font-medium mb-2">Pour les femmes</h4>
-              <p>Robe ou ensemble élégant. Toutes les couleurs sont les bienvenues sauf le blanc réservé à la mariée.</p>
+              <h4 className="font-medium mb-2">Conseils</h4>
+              <p>Les cérémonies auront lieu à la mairie puis à l'église. Pensez à une tenue confortable et élégante adaptée pour ces différents lieux.</p>
             </div>
           </div>
         </section>
