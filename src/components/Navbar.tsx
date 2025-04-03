@@ -61,14 +61,14 @@ const Navbar = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-wedding-burgundy bg-opacity-95 backdrop-blur-sm shadow-md py-2" 
-          : "bg-transparent py-3 md:py-5"
+          ? "bg-wedding-burgundy shadow-md py-2" 
+          : "bg-gradient-to-b from-black/60 to-transparent py-3 md:py-5"
       }`}
     >
       <div className="wedding-container flex justify-between items-center">
         <NavLink 
           to="/" 
-          className="text-white text-xl md:text-2xl font-playfair" 
+          className="text-white text-xl md:text-2xl font-playfair drop-shadow-md" 
           onClick={closeMobileMenu}
         >
           Marcelle & Stéphane
@@ -76,16 +76,16 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
-          <NavLink to="/about" className="nav-link">
+          <NavLink to="/about" className="nav-link font-medium drop-shadow-md">
             Notre Histoire
           </NavLink>
-          <NavLink to="/details" className="nav-link">
+          <NavLink to="/details" className="nav-link font-medium drop-shadow-md">
             Informations
           </NavLink>
-          <NavLink to="/gallery" className="nav-link">
+          <NavLink to="/gallery" className="nav-link font-medium drop-shadow-md">
             Galerie
           </NavLink>
-          <NavLink to="/rsvp" className="nav-link">
+          <NavLink to="/rsvp" className="nav-link font-medium drop-shadow-md">
             RSVP
           </NavLink>
         </nav>
@@ -93,7 +93,7 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMobileMenu}
-          className="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-wedding-orange rounded-md"
+          className="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-wedding-orange rounded-md shadow-md"
           aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={isMobileMenuOpen}
         >
@@ -107,32 +107,32 @@ const Navbar = () => {
 
       {/* Mobile Navigation - Plein écran pour une meilleure expérience */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden bg-wedding-burgundy bg-opacity-98 pt-20">
+        <div className="fixed inset-0 z-40 md:hidden bg-wedding-burgundy pt-20">
           <nav className="wedding-container flex flex-col space-y-6 p-6">
             <NavLink
               to="/about"
-              className="nav-link text-xl block py-3 text-center"
+              className="nav-link text-xl block py-3 text-center font-medium text-white"
               onClick={closeMobileMenu}
             >
               Notre Histoire
             </NavLink>
             <NavLink
               to="/details"
-              className="nav-link text-xl block py-3 text-center"
+              className="nav-link text-xl block py-3 text-center font-medium text-white"
               onClick={closeMobileMenu}
             >
               Informations
             </NavLink>
             <NavLink
               to="/gallery"
-              className="nav-link text-xl block py-3 text-center"
+              className="nav-link text-xl block py-3 text-center font-medium text-white"
               onClick={closeMobileMenu}
             >
               Galerie
             </NavLink>
             <NavLink
               to="/rsvp"
-              className="nav-link text-xl block py-3 text-center"
+              className="nav-link text-xl block py-3 text-center font-medium text-white"
               onClick={closeMobileMenu}
             >
               RSVP
