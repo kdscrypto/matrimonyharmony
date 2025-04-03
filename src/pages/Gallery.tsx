@@ -6,57 +6,57 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Gallery = () => {
   const images = [
     {
-      src: "public/lovable-uploads/e1df4d21-b7c9-455e-b640-53965aeb670a.png",
+      src: "/lovable-uploads/e1df4d21-b7c9-455e-b640-53965aeb670a.png",
       alt: "Stéphane et Marcelle en tenue élégante dans l'église",
       caption: "Séance photo à l'église"
     },
     {
-      src: "public/lovable-uploads/d47d91af-7987-4604-ac04-49300e83360b.png",
+      src: "/lovable-uploads/d47d91af-7987-4604-ac04-49300e83360b.png",
       alt: "Stéphane et Marcelle en tenue décontractée",
       caption: "Sortie en amoureux"
     },
     {
-      src: "public/lovable-uploads/b7f3518c-76ef-4d7d-8ea9-1e80a71c0a15.png",
+      src: "/lovable-uploads/b7f3518c-76ef-4d7d-8ea9-1e80a71c0a15.png",
       alt: "Stéphane et Marcelle en tenue de cérémonie",
       caption: "Journée festive"
     },
     {
-      src: "public/lovable-uploads/17a7f960-e901-4b11-9b90-2a207f4e42bb.png",
+      src: "/lovable-uploads/17a7f960-e901-4b11-9b90-2a207f4e42bb.png",
       alt: "Marcelle en tenue traditionnelle violette",
       caption: "Tradition et élégance"
     },
     {
-      src: "public/lovable-uploads/bfb33aca-f9c9-4960-a24f-31e0f681ef8e.png",
+      src: "/lovable-uploads/bfb33aca-f9c9-4960-a24f-31e0f681ef8e.png",
       alt: "Stéphane et Marcelle regardant la télévision",
       caption: "Moment de complicité"
     },
     {
-      src: "public/lovable-uploads/6cd07b9d-7090-49cb-a85b-be8bec29c42d.png",
+      src: "/lovable-uploads/6cd07b9d-7090-49cb-a85b-be8bec29c42d.png",
       alt: "Stéphane, Marcelle et leurs enfants",
       caption: "Portrait de famille"
     },
     {
-      src: "public/lovable-uploads/14494255-2458-4379-8b93-1f786dfbb373.png",
+      src: "/lovable-uploads/14494255-2458-4379-8b93-1f786dfbb373.png",
       alt: "Stéphane et Marcelle en selfie",
       caption: "Selfie complice"
     },
     {
-      src: "public/lovable-uploads/d46a6f49-3582-4661-b2ea-379adfdfdafc.png",
+      src: "/lovable-uploads/d46a6f49-3582-4661-b2ea-379adfdfdafc.png",
       alt: "Stéphane en tenue décontractée",
       caption: "Stéphane stylé"
     },
     {
-      src: "public/lovable-uploads/5d83fb40-cd26-4e14-ae5f-5ac46be54546.png",
+      src: "/lovable-uploads/5d83fb40-cd26-4e14-ae5f-5ac46be54546.png",
       alt: "Stéphane à la plage",
       caption: "Escapade à la plage"
     },
     {
-      src: "public/lovable-uploads/d1b41496-5f45-477a-ba4d-2e7b7da8bab8.png",
+      src: "/lovable-uploads/d1b41496-5f45-477a-ba4d-2e7b7da8bab8.png",
       alt: "Stéphane et Marcelle en tenue traditionnelle",
       caption: "Cérémonie traditionnelle"
     },
     {
-      src: "public/lovable-uploads/0da2d2fd-521b-4c80-93fe-651c60aa7652.png",
+      src: "/lovable-uploads/0da2d2fd-521b-4c80-93fe-651c60aa7652.png",
       alt: "Stéphane et Marcelle échangeant leurs vœux",
       caption: "Échange des vœux"
     },
@@ -165,6 +165,13 @@ const Gallery = () => {
                   alt={image.alt} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   loading="lazy"
+                  onError={(e) => {
+                    // Fallback in case of image loading error
+                    const target = e.target as HTMLImageElement;
+                    console.error(`Failed to load image: ${target.src}`);
+                    target.onerror = null; // Prevent infinite loop
+                    target.src = 'placeholder.svg'; // Use a placeholder image
+                  }}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-end justify-center">
                   <div className="p-2 sm:p-4 w-full bg-black bg-opacity-0 group-hover:bg-opacity-50 translate-y-full group-hover:translate-y-0 transition-all duration-300">
@@ -224,6 +231,13 @@ const Gallery = () => {
                 src={selectedImage.src} 
                 alt={selectedImage.alt} 
                 className="max-w-full max-h-[70vh] md:max-h-[80vh] object-contain mx-auto"
+                onError={(e) => {
+                  // Fallback in case of image loading error in lightbox
+                  const target = e.target as HTMLImageElement;
+                  console.error(`Failed to load lightbox image: ${target.src}`);
+                  target.onerror = null;
+                  target.src = 'placeholder.svg';
+                }}
               />
               <div className="bg-black bg-opacity-70 p-2 md:p-4 text-white text-center">
                 <p>{selectedImage.caption}</p>
