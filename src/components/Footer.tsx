@@ -1,6 +1,7 @@
 
 import { NavLink } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Heart } from "lucide-react";
 
 const Footer = () => {
   const isMobile = useIsMobile();
@@ -34,6 +35,9 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-gray-700 text-center">
           <p className="text-xs md:text-sm text-gray-400">
             &copy; {currentYear} | Marcelle & Stéphane
+          </p>
+          <p className="text-xs md:text-sm mt-2 font-bold">
+            Built with <Heart className="inline-block text-red-500 mx-1" size={14} fill="currentColor" /> By KDS
           </p>
         </div>
       </div>
