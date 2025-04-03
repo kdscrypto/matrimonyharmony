@@ -11,6 +11,7 @@ import About from "@/pages/About";
 import Details from "@/pages/Details";
 import Gallery from "@/pages/Gallery";
 import RSVP from "@/pages/RSVP";
+import Admin from "@/pages/Admin";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/details" element={<Details />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/rsvp" element={<RSVP />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

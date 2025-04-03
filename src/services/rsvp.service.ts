@@ -17,3 +17,13 @@ export const submitRsvp = async (data: RsvpData) => {
   
   if (error) throw error;
 };
+
+export const getAllRsvps = async () => {
+  const { data, error } = await supabase
+    .from('rsvps')
+    .select('*')
+    .order('created_at', { ascending: false });
+  
+  if (error) throw error;
+  return data;
+};
