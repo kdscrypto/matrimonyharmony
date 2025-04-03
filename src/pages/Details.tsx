@@ -5,12 +5,16 @@ import {
   Clock, 
   Utensils, 
   Music, 
-  Gift, 
   Shirt,
-  Church
+  Church,
+  Hotel
 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Details = () => {
+  const isMobile = useIsMobile();
+  
   const events = [
     {
       title: "Cérémonie Civile",
@@ -32,60 +36,92 @@ const Details = () => {
     }
   ];
 
+  const hotels = [
+    {
+      name: "Hôtel Djeuga Palace",
+      address: "Avenue Ahmadou Ahidjo, Yaoundé",
+      distance: "5 minutes en voiture",
+      price: "Prix moyen: 45 000 FCFA/nuit",
+      description: "Hôtel 4 étoiles avec piscine et restaurant gastronomique"
+    },
+    {
+      name: "Hilton Yaoundé",
+      address: "Boulevard du 20 Mai, Yaoundé",
+      distance: "10 minutes en voiture",
+      price: "Prix moyen: 60 000 FCFA/nuit",
+      description: "Grand hôtel de luxe avec vue panoramique sur la ville"
+    },
+    {
+      name: "Résidence La Falaise",
+      address: "Quartier Bastos, Yaoundé",
+      distance: "8 minutes en voiture",
+      price: "Prix moyen: 35 000 FCFA/nuit",
+      description: "Résidence hôtelière confortable et calme"
+    }
+  ];
+
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 bg-wedding-beige bg-opacity-30">
       <div className="wedding-container">
-        <h1 className="section-title mb-12">Informations Pratiques</h1>
+        <h1 className="section-title mb-12 text-wedding-burgundy">Informations Pratiques</h1>
 
-        {/* Date et lieu */}
-        <section className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8 mb-12">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-6 md:mb-0 md:mr-8">
-              <div className="flex items-center mb-4">
-                <Calendar className="w-6 h-6 text-wedding-gold mr-2" />
-                <h3 className="text-2xl font-playfair">Date</h3>
+        {/* Date et lieu - Design amélioré */}
+        <Card className="max-w-4xl mx-auto mb-12 border-wedding-gold shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <CardContent className="p-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="flex flex-col items-center mb-4">
+                  <div className="w-14 h-14 rounded-full bg-wedding-burgundy bg-opacity-10 flex items-center justify-center mb-3">
+                    <Calendar className="w-7 h-7 text-wedding-burgundy" />
+                  </div>
+                  <h3 className="text-2xl font-playfair">Date</h3>
+                </div>
+                <p className="text-lg">Samedi 17 Mai 2025</p>
               </div>
-              <p className="text-lg">Samedi 17 Mai 2025</p>
-            </div>
 
-            <div className="mb-6 md:mb-0 md:mr-8">
-              <div className="flex items-center mb-4">
-                <Clock className="w-6 h-6 text-wedding-gold mr-2" />
-                <h3 className="text-2xl font-playfair">Heure</h3>
+              <div className="text-center">
+                <div className="flex flex-col items-center mb-4">
+                  <div className="w-14 h-14 rounded-full bg-wedding-burgundy bg-opacity-10 flex items-center justify-center mb-3">
+                    <Clock className="w-7 h-7 text-wedding-burgundy" />
+                  </div>
+                  <h3 className="text-2xl font-playfair">Heure</h3>
+                </div>
+                <p className="text-lg">Cérémonie civile à 8h00</p>
               </div>
-              <p className="text-lg">Cérémonie civile à 8h00</p>
-            </div>
 
-            <div>
-              <div className="flex items-center mb-4">
-                <MapPin className="w-6 h-6 text-wedding-gold mr-2" />
-                <h3 className="text-2xl font-playfair">Lieu</h3>
+              <div className="text-center">
+                <div className="flex flex-col items-center mb-4">
+                  <div className="w-14 h-14 rounded-full bg-wedding-burgundy bg-opacity-10 flex items-center justify-center mb-3">
+                    <MapPin className="w-7 h-7 text-wedding-burgundy" />
+                  </div>
+                  <h3 className="text-2xl font-playfair">Lieu</h3>
+                </div>
+                <p className="text-lg">Mairie de Tsinga</p>
+                <p className="text-sm text-gray-600">Yaoundé, Cameroun</p>
               </div>
-              <p className="text-lg">Mairie de Tsinga</p>
-              <p className="text-sm text-gray-600">Yaoundé</p>
             </div>
-          </div>
-        </section>
+          </CardContent>
+        </Card>
 
-        {/* Programme */}
+        {/* Programme - Design amélioré */}
         <section className="max-w-4xl mx-auto mb-16">
-          <h2 className="text-2xl font-playfair text-center mb-10">Programme de la Journée</h2>
+          <h2 className="text-2xl font-playfair text-center mb-10 text-wedding-burgundy">Programme de la Journée</h2>
           
           <div className="relative">
-            {/* Ligne verticale */}
-            <div className="absolute left-16 top-0 bottom-0 w-0.5 bg-wedding-gold"></div>
+            {/* Ligne verticale - cachée sur mobile */}
+            <div className={`absolute left-8 xs:left-16 top-6 bottom-6 w-0.5 bg-wedding-gold ${isMobile ? 'opacity-50' : ''}`}></div>
             
             {/* Events */}
             <div className="space-y-8">
               {events.map((event, index) => (
                 <div key={index} className="flex">
-                  <div className="w-32 flex-shrink-0 flex justify-center">
-                    <div className="w-12 h-12 bg-wedding-gold text-white rounded-full flex items-center justify-center z-10">
+                  <div className="w-16 xs:w-32 flex-shrink-0 flex justify-center">
+                    <div className="w-12 h-12 bg-wedding-gold text-white rounded-full flex items-center justify-center z-10 shadow-md">
                       {event.icon}
                     </div>
                   </div>
-                  <div className="bg-white rounded-lg shadow-sm p-6 flex-grow">
-                    <h3 className="text-xl font-playfair mb-2">{event.title}</h3>
+                  <div className="bg-white rounded-lg shadow-md p-5 xs:p-6 flex-grow border-l-4 border-wedding-gold hover:shadow-lg transition-shadow duration-300">
+                    <h3 className="text-xl font-playfair mb-2 text-wedding-burgundy">{event.title}</h3>
                     <p className="text-wedding-gold font-medium mb-2">{event.time}</p>
                     <p className="text-gray-700">{event.description}</p>
                   </div>
@@ -95,74 +131,70 @@ const Details = () => {
           </div>
         </section>
 
-        {/* Dress Code */}
-        <section className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8 mb-12">
-          <div className="flex items-center mb-6">
-            <Shirt className="w-6 h-6 text-wedding-gold mr-2" />
-            <h2 className="text-2xl font-playfair">Dress Code</h2>
-          </div>
-          <p className="text-gray-700 mb-4">
-            Tenue chic et élégante avec touche de terracota.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div className="bg-wedding-beige bg-opacity-50 p-4 rounded-md">
-              <h4 className="font-medium mb-2">Couleurs recommandées</h4>
-              <div className="flex flex-wrap gap-2">
-                <span className="inline-block px-3 py-1 bg-orange-700 text-white rounded-md">Orange brûlé</span>
-                <span className="inline-block px-3 py-1 bg-amber-800 text-white rounded-md">Marron</span>
-                <span className="inline-block px-3 py-1 bg-red-900 text-white rounded-md">Bordeaux</span>
-                <span className="inline-block px-3 py-1 bg-orange-500 text-white rounded-md">Orange vif</span>
-                <span className="inline-block px-3 py-1 bg-green-200 text-gray-800 rounded-md">Vert pastel</span>
+        {/* Dress Code - Design amélioré */}
+        <Card className="max-w-4xl mx-auto mb-12 border-wedding-gold shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <CardContent className="p-8">
+            <div className="flex flex-col items-center mb-6">
+              <div className="w-14 h-14 rounded-full bg-wedding-burgundy bg-opacity-10 flex items-center justify-center mb-3">
+                <Shirt className="w-7 h-7 text-wedding-burgundy" />
+              </div>
+              <h2 className="text-2xl font-playfair text-wedding-burgundy">Dress Code</h2>
+            </div>
+            
+            <p className="text-gray-700 mb-6 text-center max-w-2xl mx-auto">
+              Tenue chic et élégante avec touche de terracotta pour célébrer notre union.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <div className="bg-wedding-beige rounded-md p-6 shadow-inner">
+                <h4 className="font-medium mb-4 text-wedding-burgundy text-center">Couleurs recommandées</h4>
+                <div className="flex flex-wrap justify-center gap-2">
+                  <span className="inline-block px-3 py-1 bg-orange-700 text-white rounded-md">Orange brûlé</span>
+                  <span className="inline-block px-3 py-1 bg-amber-800 text-white rounded-md">Marron</span>
+                  <span className="inline-block px-3 py-1 bg-red-900 text-white rounded-md">Bordeaux</span>
+                  <span className="inline-block px-3 py-1 bg-orange-500 text-white rounded-md">Orange vif</span>
+                  <span className="inline-block px-3 py-1 bg-green-200 text-gray-800 rounded-md">Vert pastel</span>
+                </div>
+              </div>
+              <div className="bg-wedding-beige rounded-md p-6 shadow-inner">
+                <h4 className="font-medium mb-4 text-wedding-burgundy text-center">Conseils</h4>
+                <p className="text-center">Les cérémonies auront lieu à la mairie puis à l'église. Pensez à une tenue confortable et élégante adaptée pour ces différents lieux et pour la chaleur camerounaise.</p>
               </div>
             </div>
-            <div className="bg-wedding-beige bg-opacity-50 p-4 rounded-md">
-              <h4 className="font-medium mb-2">Conseils</h4>
-              <p>Les cérémonies auront lieu à la mairie puis à l'église. Pensez à une tenue confortable et élégante adaptée pour ces différents lieux.</p>
-            </div>
-          </div>
-        </section>
+          </CardContent>
+        </Card>
 
-        {/* Hébergement */}
-        <section className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8 mb-12">
-          <h2 className="text-2xl font-playfair mb-6">Hébergement</h2>
-          <p className="text-gray-700 mb-6">
-            Pour nos invités qui viennent de loin, nous avons négocié des tarifs préférentiels dans les hôtels suivants :
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="border border-gray-200 rounded-md p-4">
-              <h4 className="font-medium mb-2">Hôtel Particulier</h4>
-              <p className="text-sm text-gray-600 mb-2">23 rue du Faubourg, 75008 Paris</p>
-              <p className="text-sm">À 5 minutes à pied du lieu de réception</p>
-              <p className="text-sm font-medium mt-2">Code promo : MARCELLE&STEPHANE</p>
+        {/* Hébergement - Design amélioré et contenu actualisé */}
+        <Card className="max-w-4xl mx-auto border-wedding-gold shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <CardContent className="p-8">
+            <div className="flex flex-col items-center mb-6">
+              <div className="w-14 h-14 rounded-full bg-wedding-burgundy bg-opacity-10 flex items-center justify-center mb-3">
+                <Hotel className="w-7 h-7 text-wedding-burgundy" />
+              </div>
+              <h2 className="text-2xl font-playfair text-wedding-burgundy">Hébergement</h2>
             </div>
-            <div className="border border-gray-200 rounded-md p-4">
-              <h4 className="font-medium mb-2">Résidence du Parc</h4>
-              <p className="text-sm text-gray-600 mb-2">45 avenue des Fleurs, 75019 Paris</p>
-              <p className="text-sm">À 10 minutes en voiture du lieu de réception</p>
-              <p className="text-sm font-medium mt-2">Code promo : MARCELLE&STEPHANE</p>
+            
+            <p className="text-gray-700 mb-8 text-center max-w-2xl mx-auto">
+              Pour nos invités qui viennent de loin, voici une sélection d'hôtels à proximité des lieux de célébration :
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {hotels.map((hotel, index) => (
+                <div key={index} className="bg-white border border-gray-200 rounded-lg p-5 shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <h4 className="font-playfair text-lg mb-3 text-wedding-burgundy">{hotel.name}</h4>
+                  <p className="text-sm text-gray-600 mb-2">{hotel.address}</p>
+                  <p className="text-sm mb-2 font-medium text-wedding-gold">{hotel.distance}</p>
+                  <p className="text-sm mb-3">{hotel.price}</p>
+                  <p className="text-sm text-gray-700 italic">{hotel.description}</p>
+                </div>
+              ))}
             </div>
-          </div>
-        </section>
-
-        {/* Cadeaux */}
-        <section className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
-          <div className="flex items-center mb-6">
-            <Gift className="w-6 h-6 text-wedding-gold mr-2" />
-            <h2 className="text-2xl font-playfair">Liste de Mariage</h2>
-          </div>
-          <p className="text-gray-700 mb-6">
-            Votre présence à notre mariage est le plus beau des cadeaux. Cependant, 
-            pour ceux qui souhaitent nous offrir un présent, nous avons créé une liste de mariage.
-          </p>
-          <div className="text-center">
-            <a 
-              href="#" 
-              className="inline-block bg-wedding-gold text-white font-medium py-3 px-8 rounded-md transition-all duration-300 hover:bg-opacity-90"
-            >
-              Accéder à la liste de mariage
-            </a>
-          </div>
-        </section>
+            
+            <div className="mt-8 text-center text-sm text-gray-600">
+              <p>Mentionnez "Mariage Marcelle & Stéphane" lors de votre réservation pour bénéficier de nos tarifs négociés</p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
