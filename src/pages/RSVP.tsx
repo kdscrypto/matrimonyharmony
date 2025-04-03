@@ -1,15 +1,28 @@
 
+import { useState } from "react";
 import RSVPForm from "@/components/RSVPForm";
+import { Calendar } from "lucide-react";
 
 const RSVP = () => {
   return (
     <div className="pt-24 pb-16">
       <div className="wedding-container">
         <h1 className="section-title mb-6">Répondez s'il vous plaît</h1>
-        <p className="text-center text-lg max-w-2xl mx-auto mb-12">
-          Nous serions ravis de vous compter parmi nos invités pour célébrer notre union.
-          Merci de confirmer votre présence avant le 15 mai 2024.
-        </p>
+        
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-12">
+          <div className="flex flex-col items-center text-center md:text-left max-w-md">
+            <p className="text-lg font-medium mb-4">
+              Nous serions ravis de vous compter parmi nos invités pour célébrer notre union.
+            </p>
+            <div className="flex items-center gap-2 text-wedding-terracotta font-semibold mb-2">
+              <Calendar size={20} />
+              <span>Date limite de réponse : 15 mai 2024</span>
+            </div>
+            <p className="text-sm text-gray-600">
+              Merci de nous faire savoir si vous pourrez être présents et si vous avez des restrictions alimentaires.
+            </p>
+          </div>
+        </div>
         
         <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
           <RSVPForm />
