@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { 
   Form, 
   FormControl, 
@@ -18,12 +17,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Info, Check, X, UserPlus, Utensils } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { UserPlus, Utensils } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import GuestInputs from "./rsvp/GuestInputs";
+import SuccessMessage from "./rsvp/SuccessMessage";
+import { submitRsvp } from "@/services/rsvp.service";
 
-// Définir le schéma de validation pour le formulaire RSVP
+// Schéma de validation pour le formulaire RSVP
 const rsvpFormSchema = z.object({
   name: z.string().min(2, {
     message: "Le nom doit contenir au moins 2 caractères",
@@ -100,11 +100,7 @@ const RSVPForm = () => {
       };
       
       // Insérer les données dans Supabase
-      const { error } = await supabase
-        .from('rsvps')
-        .insert([rsvpData]);
-      
-      if (error) throw error;
+      await submitRsvp(rsvpData);
       
       // Afficher un message de confirmation
       toast({
@@ -130,26 +126,7 @@ const RSVPForm = () => {
   };
 
   if (formSubmitted) {
-    return (
-      <Card className="bg-white rounded-lg shadow-md p-6 border-t-4 border-wedding-gold">
-        <CardContent className="pt-6 px-2 text-center">
-          <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
-            <Check className="text-green-600 w-6 h-6" />
-          </div>
-          <h3 className="text-2xl font-playfair mb-4">Merci pour votre réponse !</h3>
-          <p className="mb-6">
-            Votre réponse a bien été enregistrée. Nous avons hâte de vous compter parmi nous pour ce jour spécial.
-          </p>
-          <Button 
-            variant="outline" 
-            onClick={() => setFormSubmitted(false)}
-            className="hover:bg-wedding-gold hover:text-white"
-          >
-            Soumettre une autre réponse
-          </Button>
-        </CardContent>
-      </Card>
-    );
+    return <SuccessMessage resetForm={() => setFormSubmitted(false)} />;
   }
 
   return (
@@ -252,30 +229,7 @@ const RSVPForm = () => {
               )}
             />
 
-            {guestInputs.length > 0 && (
-              <div className="space-y-4 p-4 bg-gray-50 rounded-md">
-                <h3 className="font-medium text-lg flex items-center gap-2">
-                  <Info size={18} /> Informations sur vos accompagnants
-                </h3>
-                {guestInputs.map((_, index) => (
-                  <div key={index} className="space-y-2">
-                    <label htmlFor={`guest-${index}`} className="block text-sm font-medium">
-                      Nom de l'accompagnant {index + 1}
-                    </label>
-                    <Input
-                      id={`guest-${index}`}
-                      placeholder={`Nom et prénom de l'accompagnant ${index + 1}`}
-                      onChange={(e) => {
-                        const newGuestNames = [...guestInputs];
-                        newGuestNames[index] = e.target.value;
-                        setGuestInputs(newGuestNames);
-                      }}
-                      value={guestInputs[index]}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            <GuestInputs guestInputs={guestInputs} setGuestInputs={setGuestInputs} />
 
             <FormField
               control={form.control}
