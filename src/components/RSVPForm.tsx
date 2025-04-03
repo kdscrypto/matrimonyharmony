@@ -101,7 +101,7 @@ const RSVPForm = () => {
       
       // Insérer les données dans Supabase
       const { error } = await supabase
-        .from("rsvps")
+        .from('rsvps')
         .insert([rsvpData]);
       
       if (error) throw error;
