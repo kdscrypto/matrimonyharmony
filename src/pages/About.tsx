@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 
 const About = () => {
@@ -18,7 +17,7 @@ const About = () => {
               {/* First Meeting */}
               <div className="relative">
                 <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3 w-12 h-12 rounded-full bg-wedding-gold flex items-center justify-center text-white font-semibold">
-                  2018
+                  2021
                 </div>
                 <div className="flex flex-col md:flex-row items-center md:items-start">
                   <div className="md:w-1/2 md:pr-12 md:text-right mb-8 md:mb-0">
@@ -33,7 +32,7 @@ const About = () => {
                   <div className="md:w-1/2 md:pl-12">
                     <div className="w-64 h-64 mx-auto rounded-full overflow-hidden shadow-lg">
                       <img 
-                        src="https://images.unsplash.com/photo-1522264677 6b394-4144-a5b0-fd5fc8efc601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=760&q=80" 
+                        src="/lovable-uploads/b7f3518c-76ef-4d7d-8ea9-1e80a71c0a15.png" 
                         alt="Notre première rencontre" 
                         className="w-full h-full object-cover"
                       />
@@ -45,7 +44,7 @@ const About = () => {
               {/* First Date */}
               <div className="relative">
                 <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3 w-12 h-12 rounded-full bg-wedding-gold flex items-center justify-center text-white font-semibold">
-                  2019
+                  2022
                 </div>
                 <div className="flex flex-col md:flex-row items-center md:items-start">
                   <div className="md:w-1/2 md:pr-12 order-2 md:order-1">
@@ -97,7 +96,7 @@ const About = () => {
               {/* Wedding */}
               <div className="relative">
                 <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3 w-12 h-12 rounded-full bg-wedding-gold flex items-center justify-center text-white font-semibold">
-                  2024
+                  2025
                 </div>
                 <div className="flex flex-col md:flex-row items-center md:items-start">
                   <div className="md:w-1/2 md:pr-12 order-2 md:order-1">
