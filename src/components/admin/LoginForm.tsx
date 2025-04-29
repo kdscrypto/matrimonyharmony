@@ -99,7 +99,7 @@ const LoginForm = () => {
       )}
       
       {loginAttempts > 2 && !isBlocked && (
-        <Alert variant="warning" className="mb-4 bg-amber-50 border-amber-300">
+        <Alert variant="default" className="mb-4 bg-amber-50 border-amber-300">
           <Shield className="h-4 w-4" />
           <AlertDescription>
             {loginAttempts} tentatives de connexion détectées. 
