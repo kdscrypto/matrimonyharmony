@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import ParticlesBackground from "./ParticlesBackground";
 
 interface TimeLeft {
   days: number;
@@ -55,15 +56,21 @@ const Countdown = () => {
   );
 
   return (
-    <div className="bg-wedding-burgundy bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-90 p-6 rounded-lg shadow-lg">
-      <h3 className="text-xl md:text-2xl font-playfair text-center text-white mb-6">
-        Notre Grand Jour Arrive Dans
-      </h3>
-      <div className="flex justify-center space-x-4 md:space-x-8">
-        <TimeUnit value={timeLeft.days} label="Jours" />
-        <TimeUnit value={timeLeft.hours} label="Heures" />
-        <TimeUnit value={timeLeft.minutes} label="Minutes" />
-        <TimeUnit value={timeLeft.seconds} label="Secondes" />
+    <div className="bg-wedding-burgundy bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-90 p-6 rounded-lg shadow-lg relative overflow-hidden">
+      {/* Animation de particules en arrière-plan */}
+      <ParticlesBackground />
+      
+      {/* Contenu du compte à rebours avec z-index pour être au-dessus des particules */}
+      <div className="relative z-10">
+        <h3 className="text-xl md:text-2xl font-playfair text-center text-white mb-6">
+          Notre Grand Jour Arrive Dans
+        </h3>
+        <div className="flex justify-center space-x-4 md:space-x-8">
+          <TimeUnit value={timeLeft.days} label="Jours" />
+          <TimeUnit value={timeLeft.hours} label="Heures" />
+          <TimeUnit value={timeLeft.minutes} label="Minutes" />
+          <TimeUnit value={timeLeft.seconds} label="Secondes" />
+        </div>
       </div>
     </div>
   );
