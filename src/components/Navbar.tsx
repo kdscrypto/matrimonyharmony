@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -61,8 +62,8 @@ const Navbar = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-wedding-burgundy shadow-md py-2" 
-          : "bg-gradient-to-b from-black/60 to-transparent py-3 md:py-5"
+          ? "bg-wedding-burgundy shadow-md py-2 dark:bg-gray-900" 
+          : "bg-gradient-to-b from-black/60 to-transparent py-3 md:py-5 dark:from-black/80"
       }`}
     >
       <div className="wedding-container flex justify-between items-center">
@@ -74,8 +75,8 @@ const Navbar = () => {
           Marcelle & Stéphane
         </NavLink>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        {/* Desktop Navigation avec bouton de mode sombre */}
+        <nav className="hidden md:flex items-center space-x-8">
           <NavLink to="/about" className="nav-link font-medium drop-shadow-md">
             Notre Histoire
           </NavLink>
@@ -88,26 +89,30 @@ const Navbar = () => {
           <NavLink to="/rsvp" className="nav-link font-medium drop-shadow-md">
             RSVP
           </NavLink>
+          <ThemeToggle />
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={toggleMobileMenu}
-          className="md:hidden text-white p-2 focus:outline-none focus:ring-2 focus:ring-wedding-orange rounded-md shadow-md"
-          aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-          aria-expanded={isMobileMenuOpen}
-        >
-          {isMobileMenuOpen ? (
-            <X className="w-6 h-6" />
-          ) : (
-            <Menu className="w-6 h-6" />
-          )}
-        </button>
+        {/* Mobile Menu Button avec bouton de thème */}
+        <div className="md:hidden flex items-center space-x-2">
+          <ThemeToggle />
+          <button
+            onClick={toggleMobileMenu}
+            className="text-white p-2 focus:outline-none focus:ring-2 focus:ring-wedding-orange rounded-md shadow-md"
+            aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={isMobileMenuOpen}
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation - Plein écran pour une meilleure expérience */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden bg-wedding-burgundy pt-20">
+        <div className="fixed inset-0 z-40 md:hidden bg-wedding-burgundy dark:bg-gray-900 pt-20">
           <nav className="wedding-container flex flex-col space-y-6 p-6">
             <NavLink
               to="/about"

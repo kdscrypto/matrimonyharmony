@@ -14,30 +14,50 @@ import Gallery from "@/pages/Gallery";
 import RSVP from "@/pages/RSVP";
 import Admin from "@/pages/Admin";
 import NotFound from "@/pages/NotFound";
+import { useTheme } from "@/hooks/use-theme";
+import { useEffect } from "react";
 
 const queryClient = new QueryClient();
+
+// Composant ThemeContainer qui applique la classe "dark" au document
+const ThemeContainer = ({ children }: { children: React.ReactNode }) => {
+  const { theme } = useTheme();
+  
+  // Effet pour appliquer la classe dark au document
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+  
+  return <>{children}</>;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Navbar />
-          <main>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/details" element={<Details />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/rsvp" element={<RSVP />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </BrowserRouter>
+        <ThemeContainer>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Navbar />
+            <main>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/details" element={<Details />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/rsvp" element={<RSVP />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </BrowserRouter>
+        </ThemeContainer>
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>

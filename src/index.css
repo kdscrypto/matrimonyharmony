@@ -49,6 +49,36 @@
     --radius: 0.5rem;
   }
 
+  .dark {
+    --background: 15 15% 10%;
+    --foreground: 20 30% 90%;
+
+    --card: 15 15% 10%;
+    --card-foreground: 20 30% 90%;
+
+    --popover: 15 15% 10%;
+    --popover-foreground: 20 30% 90%;
+
+    --primary: 20 60% 50%;
+    --primary-foreground: 15 15% 10%;
+
+    --secondary: 15 30% 20%;
+    --secondary-foreground: 20 30% 90%;
+
+    --muted: 15 30% 20%;
+    --muted-foreground: 15 30% 65%;
+
+    --accent: 20 60% 40%;
+    --accent-foreground: 20 30% 90%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 20 30% 90%;
+
+    --border: 15 30% 25%;
+    --input: 15 30% 25%;
+    --ring: 20 60% 50%;
+  }
+
   * {
     @apply border-border;
   }
@@ -59,7 +89,7 @@
   }
 
   body {
-    @apply bg-white text-wedding-burgundy font-montserrat min-h-screen;
+    @apply bg-background text-foreground font-montserrat min-h-screen transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -103,7 +133,7 @@
   }
   
   .btn-outline {
-    @apply border border-wedding-terracotta text-wedding-burgundy px-5 py-2 md:px-6 md:py-3 rounded-md hover:bg-wedding-terracotta hover:text-white transition-all duration-300 font-medium shadow-sm hover:shadow focus:ring-2 focus:ring-wedding-orange focus:ring-opacity-50;
+    @apply border border-wedding-terracotta text-wedding-burgundy dark:text-white px-5 py-2 md:px-6 md:py-3 rounded-md hover:bg-wedding-terracotta hover:text-white transition-all duration-300 font-medium shadow-sm hover:shadow focus:ring-2 focus:ring-wedding-orange focus:ring-opacity-50;
   }
   
   .nav-link {
@@ -111,12 +141,12 @@
   }
   
   .section-title {
-    @apply text-2xl sm:text-3xl md:text-4xl font-playfair font-semibold mb-6 md:mb-8 text-center text-wedding-burgundy;
+    @apply text-2xl sm:text-3xl md:text-4xl font-playfair font-semibold mb-6 md:mb-8 text-center text-wedding-burgundy dark:text-wedding-gold;
   }
 
   /* Composants de carte réactifs */
   .responsive-card {
-    @apply bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:shadow-lg hover:-translate-y-1;
   }
 
   /* Grille adaptative automatique */
@@ -126,7 +156,7 @@
 
   /* Styles de formulaire améliorés */
   .form-input {
-    @apply w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-wedding-gold transition-all duration-200;
+    @apply w-full px-4 py-3 rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-wedding-gold transition-all duration-200;
   }
 
   /* Améliorations pour la hauteur d'écran */
@@ -134,6 +164,23 @@
     min-height: 100vh;
     /* Support pour les navigateurs mobiles avec barres d'interface */
     min-height: -webkit-fill-available;
+  }
+
+  /* Adaptations pour le mode sombre */
+  .dark .bg-wedding-beige {
+    @apply bg-gray-800;
+  }
+
+  .dark .bg-wedding-sage {
+    @apply bg-gray-700;
+  }
+  
+  .dark .text-wedding-burgundy {
+    @apply text-wedding-gold;
+  }
+  
+  .dark .shadow-md {
+    @apply shadow-lg shadow-black/20;
   }
 }
 
