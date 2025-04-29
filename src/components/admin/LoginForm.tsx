@@ -1,17 +1,29 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { AlertTriangle, Lock } from "lucide-react";
+import { AlertTriangle, Lock, Shield } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { logSecurityEvent } from "@/services/security.service";
 
 const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { login, isBlocked, remainingLockoutTime } = useAuth();
   const { toast } = useToast();
+  const [loginAttempts, setLoginAttempts] = useState(0);
+
+  // Surveiller les tentatives de connexion excessives
+  useEffect(() => {
+    if (loginAttempts > 2) {
+      logSecurityEvent("multiple_login_attempts", { 
+        attempts: loginAttempts,
+        timestamp: new Date().toISOString()
+      });
+    }
+  }, [loginAttempts]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,19 +37,40 @@ const LoginForm = () => {
       return;
     }
     
+    // Vérifier que le mot de passe n'est pas vide
+    if (!password.trim()) {
+      toast({
+        title: "Erreur de saisie",
+        description: "Le mot de passe ne peut pas être vide.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsLoading(true);
     
     try {
       const result = await login(password);
       
-      if (!result.success && result.message) {
-        toast({
-          title: "Erreur d'authentification",
-          description: result.message,
-          variant: "destructive",
-        });
+      if (!result.success) {
+        setLoginAttempts(prev => prev + 1);
+        
+        if (result.message) {
+          toast({
+            title: "Erreur d'authentification",
+            description: result.message,
+            variant: "destructive",
+          });
+        }
+      } else {
+        setLoginAttempts(0);
       }
     } catch (error) {
+      logSecurityEvent("login_system_error", { 
+        timestamp: new Date().toISOString(),
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+      
       toast({
         title: "Erreur système",
         description: "Une erreur inattendue s'est produite. Veuillez réessayer ultérieurement.",
@@ -45,6 +78,8 @@ const LoginForm = () => {
       });
     } finally {
       setIsLoading(false);
+      // Effacer le mot de passe du formulaire pour plus de sécurité
+      setPassword("");
     }
   };
 
@@ -63,6 +98,16 @@ const LoginForm = () => {
         </Alert>
       )}
       
+      {loginAttempts > 2 && !isBlocked && (
+        <Alert variant="warning" className="mb-4 bg-amber-50 border-amber-300">
+          <Shield className="h-4 w-4" />
+          <AlertDescription>
+            {loginAttempts} tentatives de connexion détectées. 
+            Après {5 - loginAttempts} tentatives supplémentaires, votre compte sera temporairement bloqué.
+          </AlertDescription>
+        </Alert>
+      )}
+      
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="password" className="block text-sm font-medium mb-1">
@@ -77,8 +122,10 @@ const LoginForm = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Entrez le mot de passe"
               className="pl-10"
+              autoComplete="current-password"
               required
               disabled={isBlocked || isLoading}
+              aria-describedby="password-requirements"
             />
           </div>
         </div>

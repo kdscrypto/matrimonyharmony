@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,7 +20,7 @@ import { UserPlus, Utensils, Shield } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import GuestInputs from "./rsvp/GuestInputs";
 import SuccessMessage from "./rsvp/SuccessMessage";
-import { submitRsvp } from "@/services/rsvp.service";
+import { submitRsvp, getCSRFToken } from "@/services/rsvp.service";
 
 // Schéma de validation amélioré pour le formulaire RSVP
 const rsvpFormSchema = z.object({
@@ -53,6 +52,7 @@ const rsvpFormSchema = z.object({
   message: z.string().max(1000, {
     message: "Le message ne doit pas dépasser 1000 caractères",
   }).optional(),
+  csrfToken: z.string()
 });
 
 type RsvpFormValues = z.infer<typeof rsvpFormSchema>;
@@ -64,6 +64,13 @@ const RSVPForm = () => {
   const [guestInputs, setGuestInputs] = useState<string[]>([]);
   const [submissionCount, setSubmissionCount] = useState(0);
   const [isRateLimited, setIsRateLimited] = useState(false);
+  const [csrfToken, setCsrfToken] = useState<string>("");
+
+  // Générer un token CSRF lors du chargement du formulaire
+  useEffect(() => {
+    const token = getCSRFToken();
+    setCsrfToken(token);
+  }, []);
 
   // Vérifier si l'utilisateur est limité en termes de soumissions
   useEffect(() => {
@@ -92,8 +99,16 @@ const RSVPForm = () => {
       guestNames: [],
       dietaryRestrictions: "",
       message: "",
+      csrfToken: ""
     },
   });
+
+  // Mettre à jour le token CSRF dans le formulaire
+  useEffect(() => {
+    if (csrfToken) {
+      form.setValue("csrfToken", csrfToken);
+    }
+  }, [csrfToken, form]);
 
   const watchAttending = form.watch("attending");
   const watchGuestCount = form.watch("guestCount");
@@ -174,6 +189,7 @@ const RSVPForm = () => {
         guest_count: parseInt(data.guestCount, 10),
         dietary_restrictions: data.dietaryRestrictions || null,
         message: data.message || null,
+        csrf_token: data.csrfToken
       };
       
       // Insérer les données dans Supabase
@@ -204,6 +220,11 @@ const RSVPForm = () => {
         description: errorMessage,
         variant: "destructive",
       });
+      
+      // Générer un nouveau token CSRF en cas d'erreur
+      const newToken = getCSRFToken();
+      setCsrfToken(newToken);
+      form.setValue("csrfToken", newToken);
     } finally {
       setIsSubmitting(false);
     }
@@ -254,6 +275,8 @@ const RSVPForm = () => {
             )}
           />
         </div>
+
+        <input type="hidden" name="csrfToken" value={csrfToken} />
 
         <FormField
           control={form.control}
@@ -336,6 +359,7 @@ const RSVPForm = () => {
                       <Textarea
                         placeholder="Allergies, régimes spéciaux, etc."
                         {...field}
+                        maxLength={500}
                       />
                     </FormControl>
                   </div>

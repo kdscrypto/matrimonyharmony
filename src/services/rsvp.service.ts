@@ -1,6 +1,12 @@
 
 import { supabase } from "@/integrations/supabase/client";
-import { sanitizeInput, validateRsvpInput, logSecurityEvent } from "@/services/security.service";
+import { 
+  sanitizeInput, 
+  validateRsvpInput, 
+  logSecurityEvent, 
+  generateCSRFToken, 
+  validateCSRFToken 
+} from "@/services/security.service";
 
 interface RsvpData {
   name: string;
@@ -9,9 +15,22 @@ interface RsvpData {
   guest_count: number;
   dietary_restrictions: string | null;
   message: string | null;
+  csrf_token?: string;
 }
 
+export const getCSRFToken = (): string => {
+  return generateCSRFToken();
+};
+
 export const submitRsvp = async (data: RsvpData) => {
+  // Vérification du token CSRF
+  if (!data.csrf_token || !validateCSRFToken(data.csrf_token)) {
+    await logSecurityEvent("csrf_validation_failed", { 
+      email: sanitizeInput(data.email)
+    });
+    throw new Error("Erreur de validation de sécurité. Veuillez réessayer.");
+  }
+  
   // Vérifier que nous avons des données valides
   const sanitizedData = {
     ...data,
@@ -24,6 +43,10 @@ export const submitRsvp = async (data: RsvpData) => {
   // Validation des entrées
   const validation = validateRsvpInput(sanitizedData);
   if (!validation.valid) {
+    await logSecurityEvent("rsvp_validation_failed", { 
+      email: sanitizedData.email, 
+      errors: validation.errors 
+    });
     throw new Error(`Validation échouée: ${validation.errors.join(", ")}`);
   }
   
@@ -49,10 +72,13 @@ export const submitRsvp = async (data: RsvpData) => {
     throw new Error("Trop de soumissions récentes. Veuillez réessayer plus tard.");
   }
 
+  // Supprimer le token CSRF des données avant de les enregistrer
+  const { csrf_token, ...dataToSave } = sanitizedData;
+
   // Insérer les données dans la base de données
   const { error } = await supabase
     .from('rsvps')
-    .insert([sanitizedData]);
+    .insert([dataToSave]);
   
   if (error) {
     console.error("Erreur lors de la soumission du RSVP:", error);

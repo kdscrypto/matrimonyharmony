@@ -16,22 +16,87 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isBlocked, setIsBlocked] = useState(false);
   const [remainingLockoutTime, setRemainingLockoutTime] = useState(0);
+  const [lastActivity, setLastActivity] = useState(Date.now());
+  const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes en millisecondes
 
   useEffect(() => {
     // Vérifier si une session existe déjà
     const authStatus = localStorage.getItem("admin-auth");
     if (authStatus === "authenticated") {
-      setIsAuthenticated(true);
+      const lastActivityTime = localStorage.getItem("admin-last-activity");
+      if (lastActivityTime) {
+        const parsedTime = parseInt(lastActivityTime, 10);
+        const now = Date.now();
+        
+        // Vérifier si la session a expiré
+        if (now - parsedTime > SESSION_TIMEOUT) {
+          // Session expirée, déconnecter l'utilisateur
+          setIsAuthenticated(false);
+          localStorage.removeItem("admin-auth");
+          localStorage.removeItem("admin-last-activity");
+          
+          logSecurityEvent("admin_session_expired", { timestamp: new Date().toISOString() });
+        } else {
+          setIsAuthenticated(true);
+          setLastActivity(parsedTime);
+        }
+      } else {
+        setIsAuthenticated(true);
+        updateLastActivity();
+      }
     }
     
     // Vérifier si le compte est bloqué
     checkLoginBlocked();
     
     // Vérifier périodiquement si le blocage est toujours actif
-    const interval = setInterval(checkLoginBlocked, 60000); // Vérifier toutes les minutes
+    const blockCheckInterval = setInterval(checkLoginBlocked, 60000); // Vérifier toutes les minutes
     
-    return () => clearInterval(interval);
-  }, []);
+    // Vérifier périodiquement l'activité de l'utilisateur
+    const activityCheckInterval = setInterval(() => {
+      if (isAuthenticated) {
+        const lastActivityTime = localStorage.getItem("admin-last-activity");
+        if (lastActivityTime) {
+          const parsedTime = parseInt(lastActivityTime, 10);
+          const now = Date.now();
+          
+          // Si aucune activité pendant la durée spécifiée, déconnecter l'utilisateur
+          if (now - parsedTime > SESSION_TIMEOUT) {
+            logout();
+            logSecurityEvent("admin_session_timeout", { 
+              timestamp: new Date().toISOString(),
+              timeout_minutes: SESSION_TIMEOUT / 60000
+            });
+          }
+        }
+      }
+    }, 60000); // Vérifier toutes les minutes
+    
+    // Ajouter des écouteurs d'événements pour suivre l'activité de l'utilisateur
+    const updateActivity = () => {
+      if (isAuthenticated) {
+        updateLastActivity();
+      }
+    };
+    
+    window.addEventListener('mousemove', updateActivity);
+    window.addEventListener('keydown', updateActivity);
+    window.addEventListener('click', updateActivity);
+    
+    return () => {
+      clearInterval(blockCheckInterval);
+      clearInterval(activityCheckInterval);
+      window.removeEventListener('mousemove', updateActivity);
+      window.removeEventListener('keydown', updateActivity);
+      window.removeEventListener('click', updateActivity);
+    };
+  }, [isAuthenticated]);
+  
+  const updateLastActivity = () => {
+    const now = Date.now();
+    setLastActivity(now);
+    localStorage.setItem("admin-last-activity", now.toString());
+  };
   
   const checkLoginBlocked = () => {
     const blocked = isLoginBlocked();
@@ -56,6 +121,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (verifyAdminPassword(password)) {
       setIsAuthenticated(true);
       localStorage.setItem("admin-auth", "authenticated");
+      updateLastActivity();
       resetLoginAttempts();
       
       // Journaliser la connexion réussie
@@ -84,6 +150,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem("admin-auth");
+    localStorage.removeItem("admin-last-activity");
     logSecurityEvent("admin_logout", { timestamp: new Date().toISOString() });
   };
 
