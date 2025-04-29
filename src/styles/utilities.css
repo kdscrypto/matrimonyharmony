@@ -33,11 +33,33 @@
   @apply shadow-lg shadow-black/20;
 }
 
+/* Utilitaires pour améliorer la visibilité des images */
+.img-enhance {
+  filter: brightness(1.1) contrast(1.05);
+}
+
+.dark .img-enhance {
+  filter: brightness(1.2) contrast(1.1);
+}
+
 /* Media queries spécifiques pour les ajustements de taille */
 @media (max-width: 640px) {
   .wedding-container {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  
+  /* Réduire l'opacité des overlays sur mobile pour meilleure visibilité */
+  .overlay-light {
+    @apply bg-black bg-opacity-10;
+  }
+  
+  .overlay-medium {
+    @apply bg-black bg-opacity-30;
+  }
+  
+  .overlay-dark {
+    @apply bg-black bg-opacity-50;
   }
 }
 

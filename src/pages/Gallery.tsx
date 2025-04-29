@@ -1,4 +1,3 @@
-
 import { useState, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -76,7 +75,6 @@ const Gallery = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const isMobile = useIsMobile();
   
-  // Support for keyboard navigation and gestures
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedImage) return;
@@ -94,7 +92,6 @@ const Gallery = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImage, selectedIndex]);
   
-  // Touch event handling for swipe on mobile
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   
@@ -124,14 +121,12 @@ const Gallery = () => {
   const openLightbox = useCallback((image: typeof images[0], index: number) => {
     setSelectedImage(image);
     setSelectedIndex(index);
-    // Prevent body scrolling when lightbox is open
     document.body.style.overflow = 'hidden';
   }, []);
 
   const closeLightbox = useCallback(() => {
     setSelectedImage(null);
     setSelectedIndex(-1);
-    // Restore body scrolling when lightbox is closed
     document.body.style.overflow = '';
   }, []);
 
@@ -166,11 +161,10 @@ const Gallery = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   loading="lazy"
                   onError={(e) => {
-                    // Fallback in case of image loading error
                     const target = e.target as HTMLImageElement;
                     console.error(`Failed to load image: ${target.src}`);
-                    target.onerror = null; // Prevent infinite loop
-                    target.src = 'placeholder.svg'; // Use a placeholder image
+                    target.onerror = null;
+                    target.src = 'placeholder.svg';
                   }}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-end justify-center">
@@ -183,10 +177,9 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Lightbox */}
         {selectedImage && (
           <div 
-            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-2 sm:p-4"
+            className={`fixed inset-0 bg-black ${isMobile ? "bg-opacity-75" : "bg-opacity-90"} z-50 flex flex-col items-center justify-center p-2 sm:p-4`}
             onClick={closeLightbox}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -204,7 +197,6 @@ const Gallery = () => {
                 <X size={isMobile ? 18 : 24} />
               </button>
               
-              {/* Navigation buttons */}
               <button
                 className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white z-10 w-8 h-8 md:w-10 md:h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center"
                 onClick={(e) => {
@@ -232,7 +224,6 @@ const Gallery = () => {
                 alt={selectedImage.alt} 
                 className="max-w-full max-h-[70vh] md:max-h-[80vh] object-contain mx-auto"
                 onError={(e) => {
-                  // Fallback in case of image loading error in lightbox
                   const target = e.target as HTMLImageElement;
                   console.error(`Failed to load lightbox image: ${target.src}`);
                   target.onerror = null;
@@ -244,7 +235,6 @@ const Gallery = () => {
               </div>
             </div>
             
-            {/* Mobile indicator and counter */}
             <div className="mt-4 text-white text-center">
               <p className="mb-2">{selectedIndex + 1} / {images.length}</p>
               {isMobile && (

@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface BackgroundSlideshowProps {
   images: string[];
@@ -13,6 +14,7 @@ const BackgroundSlideshow = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [nextImageIndex, setNextImageIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (images.length <= 1) return;
@@ -58,8 +60,8 @@ const BackgroundSlideshow = ({
         }}
       />
       
-      {/* Overlay pour assurer la lisibilité du texte */}
-      <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+      {/* Overlay pour assurer la lisibilité du texte - réduit sur mobile */}
+      <div className={`absolute inset-0 bg-black ${isMobile ? "bg-opacity-10" : "bg-opacity-30"}`}></div>
     </div>
   );
 };
