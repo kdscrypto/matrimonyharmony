@@ -1,0 +1,49 @@
+
+/* Utilitaires pour l'espacement et les marges tenant compte de la navbar */
+.pt-safe {
+  padding-top: calc(env(safe-area-inset-top) + 5rem);
+}
+
+/* Ombre de texte pour meilleure lisibilité */
+.text-shadow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Améliorations pour la hauteur d'écran */
+.min-h-screen-safe {
+  min-height: 100vh;
+  /* Support pour les navigateurs mobiles avec barres d'interface */
+  min-height: -webkit-fill-available;
+}
+
+/* Adaptations pour le mode sombre */
+.dark .bg-wedding-beige {
+  @apply bg-gray-800;
+}
+
+.dark .bg-wedding-sage {
+  @apply bg-gray-700;
+}
+
+.dark .text-wedding-burgundy {
+  @apply text-wedding-gold;
+}
+
+.dark .shadow-md {
+  @apply shadow-lg shadow-black/20;
+}
+
+/* Media queries spécifiques pour les ajustements de taille */
+@media (max-width: 640px) {
+  .wedding-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Prévention de certains problèmes de défilement iOS */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+}
