@@ -23,7 +23,7 @@ const About = () => {
                 <div className="flex flex-col md:flex-row items-start pl-20 md:pl-0">
                   <div className="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
                     <h3 className="text-xl md:text-2xl font-playfair mb-3 md:mb-4">Notre Rencontre</h3>
-                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm md:text-base">
                       J'ai vu Stéphane sur le statut d'un de ses amis et ce qui m'a le plus frappé chez lui, 
                       c'était son élégance. Après échange de contacts, nous avons commencé à discuter à n'en 
                       point finir. Cette relation remplie de ses hauts et ses bas nous a confortés dans le 
@@ -59,7 +59,7 @@ const About = () => {
                   </div>
                   <div className="md:w-1/2 md:pl-12 md:text-left mb-6 md:mb-0 order-1 md:order-2">
                     <h3 className="text-xl md:text-2xl font-playfair mb-3 md:mb-4">Premier Voyage Ensemble</h3>
-                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm md:text-base">
                       Après plusieurs semaines d'échanges et de complicité, il a décidé de m'inviter à Edea 
                       pour une première rencontre. Cette escapade de 3 jours s'est transformée en une aventure 
                       mémorable, pleine de découvertes, de fous rires et de moments de tendresse, qui ont 
@@ -77,7 +77,7 @@ const About = () => {
                 <div className="flex flex-col md:flex-row items-start pl-20 md:pl-0">
                   <div className="md:w-1/2 md:pr-12 md:text-right mb-6 md:mb-0">
                     <h3 className="text-xl md:text-2xl font-playfair mb-3 md:mb-4">La Demande</h3>
-                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm md:text-base">
                       Après quatre années d'amour et de complicité, Stéphane a fait sa demande qu'il a 
                       accompagnée du mariage coutumier.
                     </p>
@@ -111,7 +111,7 @@ const About = () => {
                   </div>
                   <div className="md:w-1/2 md:pl-12 md:text-left mb-6 md:mb-0 order-1 md:order-2">
                     <h3 className="text-xl md:text-2xl font-playfair mb-3 md:mb-4">Notre Mariage</h3>
-                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm md:text-base">
                       Nous sommes heureux de vous convier à notre mariage qui se tiendra le 17 mai 2025. 
                       Ce sera le début d'un nouveau chapitre de notre histoire, que nous sommes impatients 
                       d'écrire ensemble, entourés de toutes les personnes qui nous sont chères.
@@ -138,7 +138,7 @@ const About = () => {
                 />
               </div>
               <h3 className="text-xl md:text-2xl font-playfair mb-3">Steve Marcelle</h3>
-              <p className="text-gray-700 leading-relaxed text-sm md:text-base px-4 md:px-0">
+              <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm md:text-base px-4 md:px-0">
                 Gendarme, elle adore la décoration intérieure et la pâtisserie. 
                 Elle aime beaucoup les blagues et est très entourée de ceux qu'elle aime. 
                 Son rire communicatif et sa joie de vivre illuminent le quotidien de Stéphane 
@@ -156,7 +156,7 @@ const About = () => {
                 />
               </div>
               <h3 className="text-xl md:text-2xl font-playfair mb-3">Stéphane</h3>
-              <p className="text-gray-700 leading-relaxed text-sm md:text-base px-4 md:px-0">
+              <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm md:text-base px-4 md:px-0">
                 Gendarme, passionné de son travail, extraverti, sociable et travailleur. 
                 Son calme, sa douceur et son esprit de famille ont conquis le cœur de Steve Marcelle. 
                 Il aime les matchs de football, et aime organiser des surprises qui nourrissent 

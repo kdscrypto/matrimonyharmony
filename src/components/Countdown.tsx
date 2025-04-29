@@ -43,19 +43,19 @@ const Countdown = () => {
 
   const TimeUnit = ({ value, label }: { value: number; label: string }) => (
     <div className="flex flex-col items-center">
-      <div className="bg-white bg-opacity-80 rounded-lg p-4 w-20 md:w-24 h-20 md:h-24 flex items-center justify-center shadow-md">
-        <span className="text-2xl md:text-3xl font-semibold text-wedding-burgundy">
+      <div className="bg-white dark:bg-wedding-burgundy bg-opacity-80 dark:bg-opacity-90 rounded-lg p-4 w-20 md:w-24 h-20 md:h-24 flex items-center justify-center shadow-md">
+        <span className="text-2xl md:text-3xl font-semibold text-wedding-burgundy dark:text-white">
           {value}
         </span>
       </div>
-      <span className="mt-2 text-sm md:text-base font-medium text-white">
+      <span className="mt-2 text-sm md:text-base font-medium text-white dark:text-wedding-gold">
         {label}
       </span>
     </div>
   );
 
   return (
-    <div className="bg-wedding-burgundy bg-opacity-80 p-6 rounded-lg shadow-lg">
+    <div className="bg-wedding-burgundy bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-90 p-6 rounded-lg shadow-lg">
       <h3 className="text-xl md:text-2xl font-playfair text-center text-white mb-6">
         Notre Grand Jour Arrive Dans
       </h3>
