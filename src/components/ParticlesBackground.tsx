@@ -48,12 +48,12 @@ const ParticlesBackground = () => {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * 15 + 5,
-        speedX: Math.random() * 0.5 - 0.25,
-        speedY: Math.random() * 0.5 - 0.25,
+        speedX: (Math.random() * 0.8 - 0.4), // Vitesse augmentée pour un mouvement plus visible
+        speedY: (Math.random() * 0.8 - 0.4), // Vitesse augmentée pour un mouvement plus visible
         type: particleTypes[Math.floor(Math.random() * particleTypes.length)],
         opacity: Math.random() * 0.5 + 0.2, // Opacité entre 0.2 et 0.7
         rotation: Math.random() * Math.PI * 2,
-        rotationSpeed: (Math.random() * 0.02) - 0.01
+        rotationSpeed: (Math.random() * 0.03) - 0.015 // Rotation plus prononcée
       });
     }
 
@@ -127,6 +127,7 @@ const ParticlesBackground = () => {
     };
 
     // Animation
+    let animationId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -137,25 +138,40 @@ const ParticlesBackground = () => {
         particle.y += particle.speedY;
         particle.rotation += particle.rotationSpeed;
         
-        // Rebond sur les bords
+        // Rebond sur les bords avec changement léger de direction pour plus de naturel
         if (particle.x < 0 || particle.x > canvas.width) {
           particle.speedX *= -1;
+          // Légère variation aléatoire à chaque rebond pour un mouvement plus organique
+          particle.speedX += (Math.random() * 0.1 - 0.05);
+          particle.speedY += (Math.random() * 0.1 - 0.05);
         }
         if (particle.y < 0 || particle.y > canvas.height) {
           particle.speedY *= -1;
+          // Légère variation aléatoire à chaque rebond
+          particle.speedX += (Math.random() * 0.1 - 0.05);
+          particle.speedY += (Math.random() * 0.1 - 0.05);
+        }
+
+        // Limiter la vitesse maximale pour éviter les mouvements trop rapides
+        const maxSpeed = 1.2;
+        const currentSpeed = Math.sqrt(particle.speedX * particle.speedX + particle.speedY * particle.speedY);
+        if (currentSpeed > maxSpeed) {
+          particle.speedX = (particle.speedX / currentSpeed) * maxSpeed;
+          particle.speedY = (particle.speedY / currentSpeed) * maxSpeed;
         }
         
         // Dessiner la particule
         drawParticle(particle);
       });
       
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
     
     animate();
     
     // Nettoyage
     return () => {
+      cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
     };
   }, [theme]);
