@@ -1,7 +1,7 @@
 
 import { NavLink } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Heart, Facebook } from "lucide-react";
+import { Heart, Facebook, Youtube, Twitter, Whatsapp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -15,17 +15,48 @@ const Footer = () => {
           <div className="text-center md:text-left mb-6 md:mb-0">
             <h2 className="text-2xl font-playfair mb-2">Marcelle & Stéphane</h2>
             <p className="text-wedding-orange text-sm md:text-base">Nous avons hâte de vous voir !</p>
-            <a 
-              href="https://www.facebook.com/share/1BeiRnTvV7/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex mt-2"
-              aria-label="Suivez-nous sur Facebook"
-            >
-              <Button variant="ghost" size="icon" className="text-white hover:text-wedding-orange">
-                <Facebook size={18} />
-              </Button>
-            </a>
+            <div className="flex items-center justify-center md:justify-start mt-2 space-x-1">
+              <a 
+                href="https://www.youtube.com/@marcellestephane"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Suivez-nous sur YouTube"
+              >
+                <Button variant="ghost" size="icon" className="text-white hover:text-wedding-orange">
+                  <Youtube size={18} />
+                </Button>
+              </a>
+              <a 
+                href="https://twitter.com/marcellesteph"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Suivez-nous sur X (Twitter)"
+              >
+                <Button variant="ghost" size="icon" className="text-white hover:text-wedding-orange">
+                  <Twitter size={18} />
+                </Button>
+              </a>
+              <a 
+                href="https://wa.me/33612345678"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Contactez-nous sur WhatsApp"
+              >
+                <Button variant="ghost" size="icon" className="text-white hover:text-wedding-orange">
+                  <Whatsapp size={18} />
+                </Button>
+              </a>
+              <a 
+                href="https://www.facebook.com/share/1BeiRnTvV7/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Suivez-nous sur Facebook"
+              >
+                <Button variant="ghost" size="icon" className="text-white hover:text-wedding-orange">
+                  <Facebook size={18} />
+                </Button>
+              </a>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 md:flex md:flex-row gap-x-8 gap-y-4 md:gap-y-0 md:space-x-8 text-center md:text-left">
@@ -42,20 +73,6 @@ const Footer = () => {
               RSVP
             </NavLink>
           </div>
-        </div>
-
-        {/* Facebook Widget */}
-        <div className="mt-8 flex flex-col items-center justify-center border-t border-gray-700 pt-6">
-          <a 
-            href="https://www.facebook.com/share/1BeiRnTvV7/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 bg-[#1877F2] hover:bg-[#166FE5] text-white py-2 px-4 rounded-md transition-colors mb-6"
-            aria-label="Partager sur Facebook"
-          >
-            <Facebook size={20} />
-            <span>Suivez-nous sur Facebook</span>
-          </a>
         </div>
 
         <div className="mt-2 pt-4 border-t border-gray-700 text-center">
