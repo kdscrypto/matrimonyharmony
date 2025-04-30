@@ -16,7 +16,8 @@ const BackgroundSlideshow = ({
   const [isTransitioning, setIsTransitioning] = useState(false);
   const isMobile = useIsMobile();
 
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  // Fix for TypeScript error by using a safer check for iOS devices
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   useEffect(() => {
     if (images.length <= 1) return;
