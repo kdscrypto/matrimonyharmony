@@ -16,6 +16,8 @@ const BackgroundSlideshow = ({
   const [isTransitioning, setIsTransitioning] = useState(false);
   const isMobile = useIsMobile();
 
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
   useEffect(() => {
     if (images.length <= 1) return;
 
@@ -43,7 +45,8 @@ const BackgroundSlideshow = ({
           backgroundImage: `url(${images[currentImageIndex]})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
+          backgroundRepeat: "no-repeat",
+          filter: isIOS ? "brightness(1.25) contrast(1.1)" : "none"
         }}
       />
       
@@ -56,12 +59,17 @@ const BackgroundSlideshow = ({
           backgroundImage: `url(${images[nextImageIndex]})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
+          backgroundRepeat: "no-repeat",
+          filter: isIOS ? "brightness(1.25) contrast(1.1)" : "none"
         }}
       />
       
-      {/* Overlay pour assurer la lisibilité du texte - réduit sur mobile */}
-      <div className={`absolute inset-0 bg-black ${isMobile ? "bg-opacity-10" : "bg-opacity-30"}`}></div>
+      {/* Overlay pour assurer la lisibilité du texte - réduit sur mobile et iOS */}
+      <div 
+        className={`absolute inset-0 bg-black ${
+          isIOS ? "bg-opacity-15" : (isMobile ? "bg-opacity-20" : "bg-opacity-30")
+        }`}
+      ></div>
     </div>
   );
 };

@@ -28,8 +28,8 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({ images, onImageClick }) => {
               target.src = 'placeholder.svg';
             }}
           />
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-end justify-center">
-            <div className="p-2 sm:p-4 w-full bg-black bg-opacity-0 group-hover:bg-opacity-50 translate-y-full group-hover:translate-y-0 transition-all duration-300">
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-end justify-center">
+            <div className="p-2 sm:p-4 w-full bg-black bg-opacity-0 group-hover:bg-opacity-40 translate-y-full group-hover:translate-y-0 transition-all duration-300">
               <p className="text-white text-center text-xs sm:text-sm">{image.caption}</p>
             </div>
           </div>

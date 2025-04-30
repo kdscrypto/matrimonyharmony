@@ -42,6 +42,25 @@
   filter: brightness(1.2) contrast(1.1);
 }
 
+/* Ajustements spécifiques pour iOS */
+@supports (-webkit-touch-callout: none) {
+  .image-container img {
+    filter: brightness(1.15) contrast(1.1);
+  }
+  
+  .overlay-light {
+    @apply bg-black bg-opacity-10 !important;
+  }
+  
+  .overlay-medium {
+    @apply bg-black bg-opacity-20 !important;
+  }
+  
+  .overlay-dark {
+    @apply bg-black bg-opacity-30 !important;
+  }
+}
+
 /* Media queries spécifiques pour les ajustements de taille */
 @media (max-width: 640px) {
   .wedding-container {
