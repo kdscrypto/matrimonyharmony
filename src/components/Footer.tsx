@@ -1,7 +1,7 @@
 
 import { NavLink } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Heart } from "lucide-react";
+import { Heart, Facebook } from "lucide-react";
 
 const Footer = () => {
   const isMobile = useIsMobile();
@@ -32,7 +32,21 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center">
+        {/* Facebook Widget */}
+        <div className="mt-8 flex flex-col items-center justify-center border-t border-gray-700 pt-6">
+          <a 
+            href="https://www.facebook.com/share/1BeiRnTvV7/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 bg-[#1877F2] hover:bg-[#166FE5] text-white py-2 px-4 rounded-md transition-colors mb-6"
+            aria-label="Partager sur Facebook"
+          >
+            <Facebook size={20} />
+            <span>Suivez-nous sur Facebook</span>
+          </a>
+        </div>
+
+        <div className="mt-2 pt-4 border-t border-gray-700 text-center">
           <p className="text-xs md:text-sm text-gray-400">
             &copy; {currentYear} | Marcelle & Stéphane
           </p>
