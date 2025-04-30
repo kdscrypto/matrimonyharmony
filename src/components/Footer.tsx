@@ -2,6 +2,7 @@
 import { NavLink } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Heart, Facebook } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   const isMobile = useIsMobile();
@@ -14,6 +15,17 @@ const Footer = () => {
           <div className="text-center md:text-left mb-6 md:mb-0">
             <h2 className="text-2xl font-playfair mb-2">Marcelle & Stéphane</h2>
             <p className="text-wedding-orange text-sm md:text-base">Nous avons hâte de vous voir !</p>
+            <a 
+              href="https://www.facebook.com/share/1BeiRnTvV7/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex mt-2"
+              aria-label="Suivez-nous sur Facebook"
+            >
+              <Button variant="ghost" size="icon" className="text-white hover:text-wedding-orange">
+                <Facebook size={18} />
+              </Button>
+            </a>
           </div>
 
           <div className="grid grid-cols-2 md:flex md:flex-row gap-x-8 gap-y-4 md:gap-y-0 md:space-x-8 text-center md:text-left">
