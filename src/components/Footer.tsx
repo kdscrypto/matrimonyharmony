@@ -1,7 +1,7 @@
 
 import { NavLink } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Heart, Facebook, Youtube, Twitter, MessageCircle } from "lucide-react";
+import { Heart, Facebook, Youtube, Twitter, MessageCircle, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -82,6 +82,15 @@ const Footer = () => {
           <p className="text-xs md:text-sm mt-2 font-bold">
             Built with <Heart className="inline-block text-red-500 mx-1" size={14} fill="currentColor" /> By KDS
           </p>
+          <div className="mt-2 flex items-center justify-center">
+            <NavLink 
+              to="/admin" 
+              className="flex items-center gap-1 text-xs text-gray-400 hover:text-wedding-orange transition-colors"
+              title="Administration"
+            >
+              <Shield size={12} /> Admin
+            </NavLink>
+          </div>
         </div>
       </div>
     </footer>
