@@ -33,6 +33,19 @@
   @apply shadow-lg shadow-black/20;
 }
 
+/* Amélioration de la visibilité du texte en mode sombre */
+.dark .text-gray-600 {
+  @apply text-gray-300;
+}
+
+.dark .form-label {
+  @apply text-white;
+}
+
+.dark .form-description {
+  @apply text-gray-300;
+}
+
 /* Utilitaires pour améliorer la visibilité des images */
 .img-enhance {
   filter: brightness(1.1) contrast(1.05);
