@@ -1,7 +1,7 @@
 
 import { NavLink } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Heart, Facebook, Youtube, Twitter, Whatsapp } from "lucide-react";
+import { Heart, Facebook, Youtube, Twitter, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -43,7 +43,7 @@ const Footer = () => {
                 aria-label="Contactez-nous sur WhatsApp"
               >
                 <Button variant="ghost" size="icon" className="text-white hover:text-wedding-orange">
-                  <Whatsapp size={18} />
+                  <MessageCircle size={18} />
                 </Button>
               </a>
               <a 
