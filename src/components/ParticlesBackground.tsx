@@ -14,7 +14,11 @@ interface Particle {
   rotationSpeed: number;
 }
 
-const ParticlesBackground = () => {
+interface ParticlesBackgroundProps {
+  showFallingHearts?: boolean;
+}
+
+const ParticlesBackground = ({ showFallingHearts = false }: ParticlesBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
   
@@ -41,20 +45,29 @@ const ParticlesBackground = () => {
     const particles: Particle[] = [];
     const particleCount = Math.min(window.innerWidth / 10, 50); // Limiter le nombre de particules selon la taille de l'écran
     
-    const particleTypes: Array<"heart" | "ring" | "petal" | "star"> = ["heart", "ring", "petal", "star"];
+    // Types de particules
+    const particleTypes: Array<"heart" | "ring" | "petal" | "star"> = showFallingHearts 
+      ? ["heart"] // Uniquement des cœurs quand proche du mariage
+      : ["heart", "ring", "petal", "star"];
     
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
+    // Fonction pour créer une particule
+    const createParticle = (): Particle => {
+      return {
         x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        y: showFallingHearts ? -50 - Math.random() * 100 : Math.random() * canvas.height, // Au-dessus du canvas si ce sont des cœurs tombants
         size: Math.random() * 15 + 5,
-        speedX: (Math.random() * 0.8 - 0.4), // Vitesse augmentée pour un mouvement plus visible
-        speedY: (Math.random() * 0.8 - 0.4), // Vitesse augmentée pour un mouvement plus visible
+        speedX: showFallingHearts ? (Math.random() * 1 - 0.5) * 0.5 : (Math.random() * 0.8 - 0.4), // Vitesse horizontale plus lente pour les cœurs
+        speedY: showFallingHearts ? Math.random() * 1 + 0.5 : (Math.random() * 0.8 - 0.4), // Vitesse vers le bas pour les cœurs
         type: particleTypes[Math.floor(Math.random() * particleTypes.length)],
         opacity: Math.random() * 0.5 + 0.2, // Opacité entre 0.2 et 0.7
         rotation: Math.random() * Math.PI * 2,
         rotationSpeed: (Math.random() * 0.03) - 0.015 // Rotation plus prononcée
-      });
+      };
+    };
+    
+    // Initialiser les particules
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(createParticle());
     }
 
     // Dessiner une particule selon son type
@@ -65,7 +78,10 @@ const ParticlesBackground = () => {
       
       const isLightTheme = theme === "light";
       
-      if (isLightTheme) {
+      // Couleur spéciale pour les cœurs tombants
+      if (showFallingHearts && particle.type === "heart") {
+        ctx.fillStyle = `rgba(234, 56, 76, ${particle.opacity + 0.3})`; // Rouge vif (#ea384c)
+      } else if (isLightTheme) {
         ctx.fillStyle = `rgba(112, 31, 31, ${particle.opacity})`; // wedding-burgundy
       } else {
         ctx.fillStyle = `rgba(217, 199, 167, ${particle.opacity})`; // wedding-gold
@@ -132,32 +148,39 @@ const ParticlesBackground = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Mettre à jour et dessiner chaque particule
-      particles.forEach((particle) => {
+      particles.forEach((particle, index) => {
         // Mise à jour de la position
         particle.x += particle.speedX;
         particle.y += particle.speedY;
         particle.rotation += particle.rotationSpeed;
         
-        // Rebond sur les bords avec changement léger de direction pour plus de naturel
-        if (particle.x < 0 || particle.x > canvas.width) {
-          particle.speedX *= -1;
-          // Légère variation aléatoire à chaque rebond pour un mouvement plus organique
-          particle.speedX += (Math.random() * 0.1 - 0.05);
-          particle.speedY += (Math.random() * 0.1 - 0.05);
-        }
-        if (particle.y < 0 || particle.y > canvas.height) {
-          particle.speedY *= -1;
-          // Légère variation aléatoire à chaque rebond
-          particle.speedX += (Math.random() * 0.1 - 0.05);
-          particle.speedY += (Math.random() * 0.1 - 0.05);
-        }
+        if (showFallingHearts) {
+          // Pour les cœurs tombants, créer de nouvelles particules quand elles sortent de l'écran
+          if (particle.y > canvas.height + 50) {
+            particles[index] = createParticle();
+          }
+        } else {
+          // Rebond sur les bords avec changement léger de direction pour plus de naturel
+          if (particle.x < 0 || particle.x > canvas.width) {
+            particle.speedX *= -1;
+            // Légère variation aléatoire à chaque rebond pour un mouvement plus organique
+            particle.speedX += (Math.random() * 0.1 - 0.05);
+            particle.speedY += (Math.random() * 0.1 - 0.05);
+          }
+          if (particle.y < 0 || particle.y > canvas.height) {
+            particle.speedY *= -1;
+            // Légère variation aléatoire à chaque rebond
+            particle.speedX += (Math.random() * 0.1 - 0.05);
+            particle.speedY += (Math.random() * 0.1 - 0.05);
+          }
 
-        // Limiter la vitesse maximale pour éviter les mouvements trop rapides
-        const maxSpeed = 1.2;
-        const currentSpeed = Math.sqrt(particle.speedX * particle.speedX + particle.speedY * particle.speedY);
-        if (currentSpeed > maxSpeed) {
-          particle.speedX = (particle.speedX / currentSpeed) * maxSpeed;
-          particle.speedY = (particle.speedY / currentSpeed) * maxSpeed;
+          // Limiter la vitesse maximale pour éviter les mouvements trop rapides
+          const maxSpeed = 1.2;
+          const currentSpeed = Math.sqrt(particle.speedX * particle.speedX + particle.speedY * particle.speedY);
+          if (currentSpeed > maxSpeed) {
+            particle.speedX = (particle.speedX / currentSpeed) * maxSpeed;
+            particle.speedY = (particle.speedY / currentSpeed) * maxSpeed;
+          }
         }
         
         // Dessiner la particule
@@ -174,7 +197,7 @@ const ParticlesBackground = () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
     };
-  }, [theme]);
+  }, [theme, showFallingHearts]);
   
   return (
     <canvas 
