@@ -1,10 +1,30 @@
 
+import { detectAttack, AttackType } from "./attack-detection.service";
+import { logSecurityEvent } from "./logging.service";
+
 /**
  * Sanitise les entrées utilisateur pour éviter les attaques XSS
- * Version renforcée avec échappement HTML plus complet
+ * Version renforcée avec échappement HTML plus complet et détection d'attaques
  */
-export const sanitizeInput = (input: string): string => {
+export const sanitizeInput = (input: string, source: string = "unknown"): string => {
   if (!input) return "";
+  
+  // Détection d'attaques potentielles avant sanitisation
+  const detectionResult = detectAttack(input, source);
+  if (detectionResult.isAttack) {
+    // Journaliser la tentative d'attaque
+    logSecurityEvent("attack_attempt_detected", {
+      input: input.substring(0, 100), // Tronquer pour éviter une journalisation excessive
+      attack_type: detectionResult.type,
+      confidence: detectionResult.confidence,
+      source
+    });
+    
+    // Si c'est une attaque à haute confiance, on pourrait prendre des mesures supplémentaires
+    if (detectionResult.confidence > 0.8) {
+      console.warn(`Tentative d'attaque détectée: ${detectionResult.type} (${source})`);
+    }
+  }
   
   // Échappement HTML renforcé
   return input
@@ -20,3 +40,19 @@ export const sanitizeInput = (input: string): string => {
     .replace(/on\w+\s*=/gi, "")
     .replace(/data:/gi, "");
 }
+
+/**
+ * Version avancée qui sanitise un objet entier
+ */
+export const sanitizeObject = <T extends Record<string, any>>(data: T, prefix: string = "form"): T => {
+  const result = { ...data };
+  
+  for (const key in result) {
+    if (Object.prototype.hasOwnProperty.call(result, key) && typeof result[key] === 'string') {
+      result[key] = sanitizeInput(result[key], `${prefix}.${key}`);
+    }
+  }
+  
+  return result;
+}
+

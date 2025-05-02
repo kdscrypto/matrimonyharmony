@@ -16,7 +16,8 @@ export {
 } from './csrf.service';
 
 export {
-  sanitizeInput
+  sanitizeInput,
+  sanitizeObject
 } from './sanitize.service';
 
 export {
@@ -24,5 +25,14 @@ export {
 } from './validation.service';
 
 export {
-  logSecurityEvent
+  logSecurityEvent,
+  SecurityEventSeverity
 } from './logging.service';
+
+export {
+  detectAttack,
+  analyzeObject,
+  isSafeInput,
+  AttackType
+} from './attack-detection.service';
+

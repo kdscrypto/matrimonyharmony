@@ -1,12 +1,34 @@
 
 import { logSecurityEvent } from "./logging.service";
 import { sanitizeInput } from "./sanitize.service";
+import { analyzeObject, AttackType } from "./attack-detection.service";
 
 /**
  * Validation renforcée des entrées du formulaire RSVP
  */
 export const validateRsvpInput = (data: any): { valid: boolean; errors: string[] } => {
   const errors: string[] = [];
+  
+  // Analyse de sécurité avancée
+  const attackResults = analyzeObject(data, "rsvp_form");
+  if (attackResults.length > 0) {
+    // On a détecté des tentatives d'attaque
+    logSecurityEvent("attack_detected_in_form", {
+      form: "rsvp",
+      attacks: attackResults.map(r => ({
+        type: r.type,
+        confidence: r.confidence,
+        details: r.details
+      }))
+    });
+    
+    // Bloquer la validation si des attaques à haute confiance sont détectées
+    const highConfidenceAttacks = attackResults.filter(r => r.confidence > 0.8);
+    if (highConfidenceAttacks.length > 0) {
+      errors.push("Contenu non autorisé détecté dans le formulaire. Veuillez vérifier vos entrées.");
+      return { valid: false, errors };
+    }
+  }
   
   // Validation du nom avec regex plus strict
   if (!data.name || data.name.trim().length < 2) {
@@ -45,3 +67,4 @@ export const validateRsvpInput = (data: any): { valid: boolean; errors: string[]
     errors
   };
 }
+
