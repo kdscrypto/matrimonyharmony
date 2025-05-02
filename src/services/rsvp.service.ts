@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import { 
   sanitizeInput, 
@@ -6,7 +5,7 @@ import {
   logSecurityEvent, 
   generateCSRFToken, 
   validateCSRFToken 
-} from "@/services/security.service";
+} from "@/services/security";
 
 interface RsvpData {
   name: string;
