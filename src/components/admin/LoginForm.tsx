@@ -17,7 +17,7 @@ const LoginForm = () => {
 
   // Surveiller les tentatives de connexion excessives
   useEffect(() => {
-    if (loginAttempts > 2) {
+    if (loginAttempts > 1) { // Réduit le seuil de 2 à 1
       logSecurityEvent("multiple_login_attempts", { 
         attempts: loginAttempts,
         timestamp: new Date().toISOString()
@@ -98,12 +98,12 @@ const LoginForm = () => {
         </Alert>
       )}
       
-      {loginAttempts > 2 && !isBlocked && (
+      {loginAttempts > 1 && !isBlocked && ( // Réduit le seuil d'alerte de 2 à 1
         <Alert variant="default" className="mb-4 bg-amber-50 border-amber-300">
           <Shield className="h-4 w-4" />
           <AlertDescription>
             {loginAttempts} tentatives de connexion détectées. 
-            Après {5 - loginAttempts} tentatives supplémentaires, votre compte sera temporairement bloqué.
+            Après {3 - loginAttempts} tentatives supplémentaires, votre compte sera temporairement bloqué.
           </AlertDescription>
         </Alert>
       )}

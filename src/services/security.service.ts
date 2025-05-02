@@ -1,11 +1,10 @@
-
 import { supabase } from "@/integrations/supabase/client";
 import CryptoJS from "crypto-js";
 
 // Constantes de sécurité
 const LOGIN_ATTEMPTS_KEY = "login-attempts";
-const MAX_LOGIN_ATTEMPTS = 5;
-const LOCKOUT_TIME = 15 * 60 * 1000; // 15 minutes en millisecondes
+const MAX_LOGIN_ATTEMPTS = 3; // Réduit de 5 à 3
+const LOCKOUT_TIME = 30 * 60 * 1000; // Augmenté à 30 minutes (contre 15 avant)
 const TOKEN_NAME = "wedding-csrf-token";
 
 interface LoginAttempt {
@@ -97,8 +96,10 @@ export const resetLoginAttempts = (): void => {
 export const verifyAdminPassword = (password: string): boolean => {
   // Utilisation de PBKDF2 avec plus d'itérations pour une meilleure sécurité
   const salt = "wedding-salt-2025"; // En production, le sel devrait être unique et stocké séparément
-  const key = CryptoJS.PBKDF2(password, salt, { keySize: 8, iterations: 10000 }).toString();
-  const expectedHash = "a2d2da2f925ca27152727687c2d759fa4fc8a786bb6be669d8adf44abae16790"; // Hash de "wedding2024" avec PBKDF2
+  const key = CryptoJS.PBKDF2(password, salt, { keySize: 8, iterations: 15000 }).toString(); // Augmenté à 15000 itérations
+  
+  // Nouveau hash pour "Frank1992@"
+  const expectedHash = "45fc11a29a906a9c05e5e218e9179893503e4634c3a08aaa49c8b079edfec180"; 
   
   const result = key === expectedHash;
   
@@ -200,9 +201,7 @@ export const validateCSRFToken = (token: string): boolean => {
 }
 
 /**
- * Enregistre une action de sécurité pour l'audit (en console uniquement)
- * Étant donné que la table security_logs n'existe pas dans Supabase,
- * nous allons simplement journaliser les événements dans la console
+ * Enregistre une action de sécurité pour l'audit
  */
 export const logSecurityEvent = async (eventType: string, details: any): Promise<void> => {
   try {
