@@ -42,17 +42,18 @@ export const sanitizeInput = (input: string, source: string = "unknown"): string
 }
 
 /**
- * Version avancée qui sanitise un objet entier
+ * Version corrigée qui sanitise un objet entier
+ * Corrige l'erreur de typage TypeScript
  */
 export const sanitizeObject = <T extends Record<string, any>>(data: T, prefix: string = "form"): T => {
   const result = { ...data };
   
   for (const key in result) {
     if (Object.prototype.hasOwnProperty.call(result, key) && typeof result[key] === 'string') {
-      result[key] = sanitizeInput(result[key], `${prefix}.${key}`);
+      // Cast explicite pour indiquer à TypeScript que nous préservons le type
+      result[key] = sanitizeInput(result[key], `${prefix}.${key}`) as T[Extract<keyof T, string>];
     }
   }
   
   return result;
 }
-

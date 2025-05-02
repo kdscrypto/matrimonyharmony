@@ -90,18 +90,15 @@ export const resetLoginAttempts = (): void => {
 }
 
 /**
- * Compare un hash pour vérifier le mot de passe administrateur
- * Utilise un algorithme plus sécurisé (PBKDF2)
+ * Fonction corrigée pour vérifier le mot de passe administrateur
+ * Utilise un algorithme plus simple et direct pour comparer le mot de passe
  */
 export const verifyAdminPassword = (password: string): boolean => {
-  // Utilisation de PBKDF2 avec plus d'itérations pour une meilleure sécurité
-  const salt = "wedding-salt-2025"; // En production, le sel devrait être unique et stocké séparément
-  const key = CryptoJS.PBKDF2(password, salt, { keySize: 8, iterations: 15000 }).toString();
+  // Le mot de passe attendu est "Frank1992@"
+  const expectedPassword = "Frank1992@";
   
-  // Hash pour "Frank1992@"
-  const expectedHash = "45fc11a29a906a9c05e5e218e9179893503e4634c3a08aaa49c8b079edfec180"; 
-  
-  const result = key === expectedHash;
+  // Comparaison directe des chaînes de caractères
+  const result = password === expectedPassword;
   
   // Journaliser la tentative d'authentification (sans le mot de passe)
   logSecurityEvent(result ? "admin_login_success" : "admin_login_failed", {
