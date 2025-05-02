@@ -16,6 +16,7 @@ import Admin from "@/pages/Admin";
 import NotFound from "@/pages/NotFound";
 import { useTheme } from "@/hooks/use-theme";
 import { useEffect } from "react";
+import AudioPlayer from "@/components/AudioPlayer";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => (
               </Routes>
             </main>
             <Footer />
+            <AudioPlayer audioSrc="/assets/background-music.mp3" />
           </BrowserRouter>
         </ThemeContainer>
       </AuthProvider>
