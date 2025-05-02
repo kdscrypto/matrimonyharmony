@@ -1,0 +1,15 @@
+
+# Configuration for Netlify deployment
+[build]
+  command = "npm run build"
+  publish = "dist"
+  
+# Handle SPA routing - important for React Router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Set environment variables for production
+[build.environment]
+  NODE_VERSION = "18" # Recommended Node version
